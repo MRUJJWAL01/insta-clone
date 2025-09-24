@@ -4,11 +4,13 @@ import AuthLayout from '../layout/AuthLayout'
 import HomeLayout from '../layout/HomeLayout'
 import HomePage from '../pages/HomePage'
 import Explore from '../pages/Explore'
+import Message from '../pages/Message'
+import MessageLayout from '../layout/MessageLayout'
 
 const AppRouter = () => {
     const router = createBrowserRouter([
         {
-            path:"/",
+            path:"/auth",
             element:<AuthLayout />
         },
         {
@@ -16,12 +18,16 @@ const AppRouter = () => {
             element:<HomeLayout />,
             children:[
                 {
-                    path:"",
+                    path:"homepage",
                     element:<HomePage />
                 },
                 {
                     path:"explore",
                     element:<Explore />
+                },
+                 {
+                    path:"message",
+                    element:<MessageLayout />
                 }
 
             ]

@@ -1,6 +1,6 @@
 import React from "react";
-import HomeSidebar from "../component/Homesidebar/HomeSidebar";
 import { Outlet } from "react-router";
+import NavbarLinks from "../component/Homesidebar/NavbarLinks";
 
 const HomeLayout = () => {
   return (
@@ -26,7 +26,7 @@ const HomeLayout = () => {
           </svg>
         </div>
         <div className="my-10">
-          <HomeSidebar />
+          <NavbarLinks />
         </div>
       </aside>
       <div className=" h-full w-[84%]">

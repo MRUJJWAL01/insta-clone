@@ -3,7 +3,7 @@ import AppRouter from './approuter/AppRouter'
 
 const App = () => {
   return (
-    <div className='h-screen bg-amber-200'>
+    <div className='h-screen '>
       <AppRouter />
     </div>
   )

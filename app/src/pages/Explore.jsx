@@ -2,8 +2,8 @@ import React from 'react'
 
 const Explore = () => {
   return (
-    <div>Explore</div>
+    <div className='text-white'>Explore</div>
   )
 }
 
-export default Explore
+export default Explore;
