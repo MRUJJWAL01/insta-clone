@@ -5,7 +5,7 @@ import NavbarLinks from "../component/Homesidebar/NavbarLinks";
 const HomeLayout = () => {
   return (
     <div className="h-screen w-full bg-black text-white flex">
-      <aside className="bg-black w-[16%] border-r border-zinc-700  ">
+      <aside className="w-[16%] border-r border-zinc-700  ">
         <div className="flex justify-center items-center mt-10 mr-[38%]  ">
           <svg
             aria-label="Instagram"
@@ -25,7 +25,7 @@ const HomeLayout = () => {
             ></path>
           </svg>
         </div>
-        <div className="my-10">
+        <div className="my-10 ">
           <NavbarLinks />
         </div>
       </aside>

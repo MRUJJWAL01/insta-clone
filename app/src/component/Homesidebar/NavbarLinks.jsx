@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Home,
   Search,
@@ -29,12 +29,14 @@ const bottom = [
 ];
 
 const NavbarLinks = () => {
+
+ 
   return (
     <>
-      <div className="bg-black py-4 w-56">
+      <div className="bg-black  w-56 h-full">
         <div className=" flex flex-col gap-2">
-          {navLinks.map(({ label, icon: Icon, to }, idx) => (
-            <NavLink
+          {navLinks.map(({ label, icon: Icon, to,click }, idx) => (
+            <NavLink 
               key={label}
               to={to}
               className={({ isActive }) =>
@@ -51,7 +53,7 @@ const NavbarLinks = () => {
                 className={`transition-colors ${
                   idx === 0
                     ? "text-white"
-                    : "text-zinc-400 group-hover:text-white"
+                    : "text-white font-bold group-hover:text-white"
                 }`}
               />
               <span>{label}</span>
