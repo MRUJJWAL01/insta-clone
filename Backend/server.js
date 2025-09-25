@@ -3,10 +3,20 @@ const app = require("./src/app");
 const http = require("http");
 const path = require("path");
 const socketIo = require("socket.io");
+const cacheClient = require("./src/services/chache.service");
+const connectDb = require("./src/db/db");
+connectDb();
 
 
 const server = http.createServer(app);
 
+cacheClient.on("connect",()=>{
+    console.log("Redis connected successfully");
+})
+cacheClient.on("error",(error)=>{
+    console.log("error in connecting ioreds", error);
+    
+})
 
 const io = socketIo(server);
 

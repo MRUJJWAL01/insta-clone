@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router";
 
 export default function LoginPage({ setToggle }) {
   const [username, setUsername] = useState("");
@@ -13,7 +14,7 @@ export default function LoginPage({ setToggle }) {
     <div className="  flex items-center justify-center p-4 mb-[5vw]">
       <div className="w-full max-w-sm">
         {/* Main login container */}
-        <div className="bg-black border border-gray-700 rounded-lg p-8 mb-4">
+        <div className="bg-black border border-[#363636] rounded-lg p-8 mb-4">
           {/* Instagram logo */}
           <div className="text-center mb-8 flex justify-center  items-center">
             <svg
@@ -44,7 +45,7 @@ export default function LoginPage({ setToggle }) {
                 placeholder="Phone number, username, or email"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full px-3 py-3 bg-gray-900 border border-gray-700 rounded text-white placeholder-gray-500 text-sm focus:outline-none focus:border-gray-500"
+                className="w-full px-3 py-3 bg-[##121212] border border-[#363636] rounded text-white placeholder-gray-500 text-sm focus:outline-none focus:border-gray-500"
               />
             </div>
 
@@ -55,7 +56,7 @@ export default function LoginPage({ setToggle }) {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-3 bg-gray-900 border border-gray-700 rounded text-white placeholder-gray-500 text-sm focus:outline-none focus:border-gray-500"
+                className="w-full px-3 py-3 bg-[##121212] border border-[#363636] rounded text-white placeholder-gray-500 text-sm focus:outline-none focus:border-gray-500"
               />
             </div>
 
@@ -70,9 +71,9 @@ export default function LoginPage({ setToggle }) {
 
           {/* OR divider */}
           <div className="flex items-center my-6">
-            <div className="flex-1 border-t border-gray-700"></div>
+            <div className="flex-1 border-t border-[#363636]"></div>
             <div className="px-4 text-gray-500 text-sm font-semibold">OR</div>
-            <div className="flex-1 border-t border-gray-700"></div>
+            <div className="flex-1 border-t border-[#363636]"></div>
           </div>
 
           {/* Facebook login */}
@@ -85,17 +86,16 @@ export default function LoginPage({ setToggle }) {
 
           {/* Forgot password */}
           <div className="text-center">
-            <a
-              href="#"
-              className="text-blue-400 text-sm hover:text-blue-300 transition-colors duration-200"
+            <NavLink to="/p"
+              className="text-blue-400 cursor-pointer text-sm hover:text-blue-300 transition-colors duration-200"
             >
               Forgot password?
-            </a>
+            </NavLink>
           </div>
         </div>
 
         {/* Sign up container */}
-        <div className="bg-black border border-gray-700 rounded-lg p-4 text-center">
+        <div className="bg-black border border-[#363636] rounded-lg p-4 text-center">
           <p className="text-white text-sm">
             Don't have an account?{" "}
             <span

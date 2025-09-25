@@ -11,7 +11,7 @@ import {
   Menu,
   LayoutGrid,
 } from "lucide-react";
-import { NavLink } from "react-router";
+import { NavLink, useLocation } from "react-router";
 
 const navLinks = [
   { label: "home", icon: Home, to: "/home/homepage" },
@@ -29,6 +29,7 @@ const bottom = [
 ];
 
 const NavbarLinks = () => {
+   const location = useLocation();
 
  
   return (
@@ -40,10 +41,10 @@ const NavbarLinks = () => {
               key={label}
               to={to}
               className={({ isActive }) =>
-                `group flex items-center gap-4 px-4 py-2 rounded-lg transition-all ${
-                  isActive
-                    ? " font-bold text-white"
-                    : "text-zinc-200 font-medium hover:bg-zinc-800 hover:text-white"
+                `group flex items-center gap-4 px-4 py-2  rounded-lg transition-all ${
+                  to == location.pathname
+                    ? " font-bold text-white  hover:bg-[#1A1A1A]"
+                    : "text-zinc-200 font-medium hover:bg-[#1A1A1A] hover:text-white"
                 }`
               }
             >
@@ -52,7 +53,7 @@ const NavbarLinks = () => {
                 strokeWidth={2}
                 className={`transition-colors ${
                   idx === 0
-                    ? "text-white"
+                    ? "text-white font-bold "
                     : "text-white font-bold group-hover:text-white"
                 }`}
               />
@@ -70,7 +71,7 @@ const NavbarLinks = () => {
               to={to}
               className={({ isActive }) =>
                 `group flex items-center gap-4 px-4 py-2 rounded-lg transition-all ${
-                  isActive
+                  to === location.pathname
                     ? " font-bold text-white"
                     : "text-zinc-200 font-medium hover:bg-zinc-800 hover:text-white"
                 }`

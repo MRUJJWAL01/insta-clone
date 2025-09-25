@@ -7,12 +7,18 @@ import Explore from '../pages/Explore'
 import Message from '../pages/MessagePage'
 import MessageLayout from '../layout/MessageLayout'
 import MessagePage from '../pages/MessagePage'
+import ForgotPass from '../component/authComponent/ForgotPass'
 
 const AppRouter = () => {
     const router = createBrowserRouter([
         {
-            path:"/auth",
-            element:<AuthLayout />
+            path:"/",
+            element:<AuthLayout />,
+
+        },
+        {
+            path:"/p",
+            element:<ForgotPass />
         },
         {
             path:"/home",

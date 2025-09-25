@@ -43,7 +43,7 @@ export default function InstagramFooter() {
             <a
               key={index}
               href="#"
-              className="text-gray-500 hover:text-gray-300 text-xs transition-colors duration-200"
+              className="text-[#A8A8A8] hover:underline text-xs transition-colors duration-200"
             >
               {link}
             </a>
@@ -51,13 +51,13 @@ export default function InstagramFooter() {
         </div>
 
         {/* Bottom Section */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-xs text-gray-500">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-xs text-[#A8A8A8]">
           {/* Language Selector */}
           <div className="relative">
             <select
               value={selectedLanguage}
               onChange={(e) => setSelectedLanguage(e.target.value)}
-              className="bg-black text-gray-500 border-none outline-none cursor-pointer text-xs pr-6 appearance-none"
+              className="bg-black text-[#A8A8A8] border-none outline-none cursor-pointer text-xs pr-6 appearance-none"
             >
               {languages.map((lang, index) => (
                 <option key={index} value={lang}>
@@ -66,7 +66,7 @@ export default function InstagramFooter() {
               ))}
             </select>
             <svg
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 w-3 h-3 text-gray-500 pointer-events-none"
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 w-3 h-3 text-[#A8A8A8] pointer-events-none"
               fill="currentColor"
               viewBox="0 0 20 20"
             >

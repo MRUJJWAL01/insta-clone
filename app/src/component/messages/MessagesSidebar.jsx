@@ -78,7 +78,7 @@ export default function MessagesSidebar() {
       <div className="flex-1 overflow-x-auto overflow-scroll ">
         {messages.map((msg, idx) => (
           <NavLink key={idx}  className={`flex items-center px-2 py-2 rounded-lg cursor-pointer transition
-            ${msg.unread ? 'bg-gray-900' : 'hover:bg-[#121212]'}`}>
+            ${msg.unread ? 'bg-[##121212]' : 'hover:bg-[#121212]'}`}>
             {/* Avatar */}
             <div className="relative">
               {msg.avatar ? (

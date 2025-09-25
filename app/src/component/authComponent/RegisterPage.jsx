@@ -30,7 +30,7 @@ export default function RegisterPage({ setToggle }) {
     <div className="min-h-screen bg-black flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
         {/* Main register container */}
-        <div className="bg-black border border-gray-700 rounded-lg p-8 mb-4">
+        <div className="bg-black border border-[#363636] rounded-lg p-8 mb-4">
           {/* Instagram logo */}
           <div className="text-center mb-6">
             <div className="flex justify-center items-center ">
@@ -70,9 +70,9 @@ export default function RegisterPage({ setToggle }) {
 
           {/* OR divider */}
           <div className="flex items-center my-6">
-            <div className="flex-1 border-t border-gray-700"></div>
+            <div className="flex-1 border-t border-[#363636]"></div>
             <div className="px-4 text-gray-500 text-sm font-semibold">OR</div>
-            <div className="flex-1 border-t border-gray-700"></div>
+            <div className="flex-1 border-t border-[#363636]"></div>
           </div>
 
           {/* Registration form */}
@@ -84,7 +84,7 @@ export default function RegisterPage({ setToggle }) {
                 placeholder="Mobile Number or Email"
                 value={formData.email}
                 onChange={(e) => handleInputChange("email", e.target.value)}
-                className="w-full px-3 py-2.5 bg-gray-900 border border-gray-700 rounded text-white placeholder-gray-500 text-xs focus:outline-none focus:border-gray-500"
+                className="w-full px-3 py-2.5 bg-[##121212] border border-[#363636] rounded text-white placeholder-gray-500 text-xs focus:outline-none focus:border-gray-500"
               />
             </div>
 
@@ -95,7 +95,7 @@ export default function RegisterPage({ setToggle }) {
                 placeholder="Password"
                 value={formData.password}
                 onChange={(e) => handleInputChange("password", e.target.value)}
-                className="w-full px-3 py-2.5 bg-gray-900 border border-gray-700 rounded text-white placeholder-gray-500 text-xs focus:outline-none focus:border-gray-500"
+                className="w-full px-3 py-2.5 bg-[##121212] border border-[#363636] rounded text-white placeholder-gray-500 text-xs focus:outline-none focus:border-gray-500"
               />
             </div>
 
@@ -106,7 +106,7 @@ export default function RegisterPage({ setToggle }) {
                 placeholder="Full Name"
                 value={formData.fullName}
                 onChange={(e) => handleInputChange("fullName", e.target.value)}
-                className="w-full px-3 py-2.5 bg-gray-900 border border-gray-700 rounded text-white placeholder-gray-500 text-xs focus:outline-none focus:border-gray-500"
+                className="w-full px-3 py-2.5 bg-[##121212] border border-[#363636] rounded text-white placeholder-gray-500 text-xs focus:outline-none focus:border-gray-500"
               />
             </div>
 
@@ -117,7 +117,7 @@ export default function RegisterPage({ setToggle }) {
                 placeholder="Username"
                 value={formData.username}
                 onChange={(e) => handleInputChange("username", e.target.value)}
-                className="w-full px-3 py-2.5 bg-gray-900 border border-gray-700 rounded text-white placeholder-gray-500 text-xs focus:outline-none focus:border-gray-500"
+                className="w-full px-3 py-2.5 bg-[##121212] border border-[#363636] rounded text-white placeholder-gray-500 text-xs focus:outline-none focus:border-gray-500"
               />
             </div>
           </div>
@@ -174,7 +174,7 @@ export default function RegisterPage({ setToggle }) {
         </div>
 
         {/* Login container */}
-        <div className="bg-black border border-gray-700 rounded-lg p-4 text-center">
+        <div className="bg-black border border-[#363636] rounded-lg p-4 text-center">
           <p className="text-white text-sm ">
             Have an account?{" "} 
             <div
