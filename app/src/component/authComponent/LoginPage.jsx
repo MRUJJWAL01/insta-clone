@@ -86,7 +86,7 @@ export default function LoginPage({ setToggle }) {
 
           {/* Forgot password */}
           <div className="text-center">
-            <NavLink to="/p"
+            <NavLink to="/forgot-password"
               className="text-blue-400 cursor-pointer text-sm hover:text-blue-300 transition-colors duration-200"
             >
               Forgot password?

@@ -2,6 +2,8 @@ const userModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const cacheClient = require("../services/chache.service");
+const emailTemplate = require("../utils/emailTemplate")
+const {sendMail} = require("../services/mail.service");
 const registerController = async (req, res) => {
   try {
     const { mobile, email, password, fullname, username } = req.body;
@@ -10,6 +12,7 @@ const registerController = async (req, res) => {
         msg: "all feilds are required..",
       });
     }
+    
     const userExist = await userModel.findOne({
       $or: [{ email }, { username }, { mobile }],
     });
@@ -120,7 +123,26 @@ const forgotPasscontroller = async (req, res) => {
         msg: "user not found",
       });
     }
+    let rawToken = jwt.sign({ id: user._id }, process.env.JWT_RAW_SECRET, {
+      expiresIn: "30m",
+    });
+
+    let resetLink = `http://localhost:3000/api/auth/reset-password/${rawToken}`;
+
+    let resetTemplate = emailTemplate({ username: user.username, resetLink });
+  
+    let response = await sendMail(
+      "ujjwalc456@gmail.com",
+      "Reset password",
+      resetTemplate
+    );
+
+    console.log(response);
+
+    return res.send("ok");
   } catch (error) {
+    console.log(error);
+    
     return res.status(500).json({
       msg: "internal server error",
       error: error,

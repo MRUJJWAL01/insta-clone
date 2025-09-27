@@ -1,12 +1,10 @@
 import React from 'react'
-import AppRouter from './approuter/AppRouter'
-import ForgotPass from './component/authComponent/ForgotPass'
+import AppRouter from './router/AppRouter'
 
 const App = () => {
   return (
     <div className='h-screen '>
       <AppRouter />
-      {/* <ForgotPass /> */}
     </div>
   )
 }

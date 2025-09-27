@@ -17,7 +17,7 @@ const AppRouter = () => {
 
         },
         {
-            path:"/p",
+            path:"/forgot-password",
             element:<ForgotPass />
         },
         {

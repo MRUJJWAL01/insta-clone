@@ -29,10 +29,10 @@ export default function ForgotPass() {
       </div>
       {/* Right side buttons */}
       <div className="flex items-center gap-5">
-        <button className="bg-[#18208B] cursor-pointer  text-white font-semibold px-5 py-1.5 rounded-lg transition">
+        <button onClick={()=>navigate("/")} className="bg-[#18208B] cursor-pointer  text-white font-semibold px-5 py-1.5 rounded-lg transition">
           Log In
         </button>
-        <button className="text-[#6C89F7] cursor-pointer hover:underline text-base font-medium">
+        <button onClick={()=>navigate("")} className="text-[#6C89F7] cursor-pointer hover:underline text-base font-medium">
           Sign Up
         </button>
       </div>
