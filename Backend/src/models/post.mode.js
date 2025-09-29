@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema({
+  user_id:{
+    type:mongoose.Schema.ObjectId,
+    ref:"user",
+  },
   imageUrl: {
     type: [String],
     required: true,
@@ -23,7 +27,7 @@ const postSchema = new mongoose.Schema({
 }
 );
 
-const postModel = mongoose.model("posts",postSchema);
+const PostModel = mongoose.model("posts",postSchema);
 
-module.exports = postModel;
+module.exports = PostModel;
 

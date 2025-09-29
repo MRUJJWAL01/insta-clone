@@ -1,8 +1,14 @@
-const express = require('express');
-const { registerController, loginController, logOutController, forgotPasscontroller } = require('../controllers/auth.controller');
-const authMiddleware = require('../middlwares/auth.middleware');
+const express = require("express");
+const {
+  registerController,
+  loginController,
+  logOutController,
+  forgotPasscontroller,
+} = require("../controllers/auth.controller");
+const authMiddleware = require("../middlwares/auth.middleware");
+const userModel = require("../models/user.model");
 const router = express.Router();
-router.get("/reset-password/:token",async (req, res) => {
+router.get("/reset-password/:token", async (req, res) => {
   let token = req.params.token;
 
   if (!token)
@@ -15,17 +21,42 @@ router.get("/reset-password/:token",async (req, res) => {
   res.render("index.ejs", { user_id: decode.id });
 });
 
-router.post("/update-password/:id", (req, res) => {
-  let id = req.params.id;
+router.post("/update-password/:id", async (req, res) => {
+  try {
+    let id = req.params.id;
   let password = req.body.password;
 
   console.log("user password", password, id);
 
-  return res.send("ok");
+  if (!id) {
+    return res.status(404)({
+      msg: "Bad request",
+    });
+  }
+  let updateUser = await userModel.findByIdAndUpdate(
+    { _id: id },
+    {
+      password,
+    }
+  );
+  return res.status(200).json({
+    msg:"password updated successfully",
+    user:updateUser
+  })
+  } catch (error) {
+    console.log("error in upadating pass_----->",error);
+    
+    return res.status(500).json({
+      msg:"bad request",
+      error:error
+    })
+    
+  }
+
 });
 
-router.post("/register",registerController);
-router.post("/login",authMiddleware,loginController);
-router.post("/logout",authMiddleware, logOutController);
-router.post("/forgot-password",forgotPasscontroller);
+router.post("/register", registerController);
+router.post("/login", authMiddleware, loginController);
+router.post("/logout", authMiddleware, logOutController);
+router.post("/forgot-password", forgotPasscontroller);
 module.exports = router;

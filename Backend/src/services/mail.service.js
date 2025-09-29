@@ -26,10 +26,10 @@ export const sendOTPEmail = async (to, otp) => {
   });
 };
 
-//
 
-//
-//
+
+
+
 //   auth: {
 //     user: "ddhote780@gmail.com",
 //     pass: "lxbtuydurvqjqulp",
