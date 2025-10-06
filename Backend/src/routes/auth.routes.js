@@ -56,7 +56,7 @@ router.post("/update-password/:id", async (req, res) => {
 });
 
 router.post("/register", registerController);
-router.post("/login", authMiddleware, loginController);
+router.post("/login", loginController);
 router.post("/logout", authMiddleware, logOutController);
 router.post("/forgot-password", forgotPasscontroller);
 module.exports = router;

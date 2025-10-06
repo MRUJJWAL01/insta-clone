@@ -1,59 +1,76 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs")
+const bcrypt = require("bcryptjs");
 
-const userSchema = new mongoose.Schema({
-    mobile:{
-        type:Number,
-        unique:true,
-        required:true,
-        minlength:10,
-        maxlenght:13
-
+const userSchema = new mongoose.Schema(
+  {
+    mobile: {
+      type: String,
+      unique: true,
+      minlength: 10,
+      maxlenght: 10,
     },
-    email:{
-      type:String,
-      unique:true,   
-      required:true,
+    email: {
+      type: String,
+      unique: true,
     },
-    fullname:{
-        type:String,
-        required:true
+    fullName: {
+      type: String,
+      required: true,
     },
-    password:{
-        type:String,
-        required:true,
-        minlength:8
+    password: {
+      type: String,
+      required: true,
+      minlength: 8,
     },
-    username:{
-        type:String,
-        required:true,
-        unique:true,
+    username: {
+      type: String,
+      required: true,
+      unique: true,
     },
-    post:[
-        {
-            type:mongoose.Schema.Types.ObjectId,
-            ref:"posts",
-        }
-    ]
-   
-},{timestamps:true})
+    post: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "posts",
+      },
+    ],
+    followers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+      },
+    ],
+    following: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+      },
+    ],
+    blockedUser: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+      },
+    ],
+  },
+  { timestamps: true }
+);
 
+userSchema.pre("save", async function (next) {
+  let hashpass = await bcrypt.hash(this.password, 10);
+  this.password = hashpass;
+  next();
+});
 
-userSchema.pre("save",async function(next){
-    let hashpass = await bcrypt.hash(this.password,10);
-    this.password = hashpass;
-    next();
-})
+userSchema.methods.JWTTokenGenration = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: "1h",
+  });
+};
 
-userSchema.methods.JWTTokenGenration = function(){
-    return jwt.sign({id:this._id},process.env.JWT_SECRET,{expiresIn:"1h"
-    })
-}
+userSchema.methods.comparePassword = async function (pass) {
+  return await bcrypt.compare(pass, this.password);
+};
 
-userSchema.methods.comparePassword = async function(pass){
-    return await bcrypt.compare(pass,this.password);
-}
-
-const userModel = mongoose.model("user",userSchema);
+const userModel = mongoose.model("user", userSchema);
 module.exports = userModel;

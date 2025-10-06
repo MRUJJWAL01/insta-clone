@@ -17,25 +17,24 @@ const creatPostController = async (req, res) => {
       )
     );
     let newPost = await PostModel.create({
-        user_id:req.user._id,
-        caption,
-        location,
-        tags,
-        imageUrl: uploadedUrlArr.map(elem=>elem.url),
-    })
-    let updatedUserPost = await userModel.findByIdAndUpdate(req.user._id,{
-        post:newPost.id
-    })
-    if(newPost){
-        return res.status(400).json({
-            msg:"bad request"
-        })
-       
+      user_id: req.user._id,
+      caption,
+      location,
+      tags,
+      imageUrl: uploadedUrlArr.map((elem) => elem.url),
+    });
+    let user = await userModel.findById(req.user._id);
+    user.post.push(newPost._id);
+    await user.save();
+    if (newPost) {
+      return res.status(400).json({
+        msg: "bad request",
+      });
     }
-     return res.status(201).json({
-            msg:"post created successfully",
-            post:newPost,
-        })
+    return res.status(201).json({
+      msg: "post created successfully",
+      post: newPost,
+    });
   } catch (error) {
     console.log("error in upload controller", error);
     return res.status(500).json({
@@ -44,7 +43,103 @@ const creatPostController = async (req, res) => {
     });
   }
 };
+const upodatePostController = async (req, res) => {
+  try {
+    const { location, caption, url, tags, post_id } = req.body;
+    let updatePost = await PostModel.findByIdAndUpdate(
+      { _id: post_id },
+      {
+        location,
+        caption,
+        imageUrl: url,
+        tags,
+      },
+      {
+        new: true,
+      }
+    );
+    if (!updatePost) {
+      return res.status(400).json({
+        Msg: "failed to update post",
+      });
+    }
+    return res.status(200).json({
+      message: "Post updated",
+      updatedPost: updatePost,
+    });
+  } catch (error) {
+    console.log("error in update post->", error);
 
-module.exports ={
-    creatPostController,
-}
+    return res.status(500).json({
+      message: "Internal server error",
+      error: error,
+    });
+  }
+};
+
+const getAllPostController = async (req, res) => {
+  try {
+    let posts = await PostModel.find({});
+    if (!posts) {
+      return res.status(404).json({
+        message: "Post not found",
+      });
+    }
+    return res.status(200).json({
+      message: "All posts ",
+      posts: posts,
+    });
+  } catch (error) {
+    console.log("error in get all post->", error);
+
+    return res.status(500).json({
+      message: "Internal server error",
+      error: error,
+    });
+  }
+};
+const getLoggedinUserPosts = async (req, res) => {
+  try {
+    let user_id = req.user.id
+    if(!user_id) return res.status(404).json({Msg:"User id not found"});
+    let loggedinUserPosts = await userModel.findById(req.user.id).populate("posts");
+    return res.status(200).json({
+        msg:"User posts found",
+        userPosts:loggedinUserPosts
+    })
+  } catch (error) {
+    console.log("error in get logged in user's posts->", error);
+    return res.status(500).json({
+      message: "Internal server error",
+      error: error,
+    });
+  }
+};
+
+const deletePost = async (req, res) => {
+  try {
+    let post_id = req.params.post_id;
+    if(!post_id) return res.status(404).json("post not found");
+    await PostModel.findByIdAndDelete(post_id);
+    return res.status(200).json({
+        msg:"post is deleted",
+    })
+
+  } catch (error) {
+    console.log("error in delete post->", error);
+
+    return res.status(500).json({
+      message: "Internal server error",
+      error: error,
+    });
+  }
+};
+
+module.exports = {
+  creatPostController,
+  upodatePostController,
+  getAllPostController,
+  getLoggedinUserPosts,
+  deletePost,
+
+};

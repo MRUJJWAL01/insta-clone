@@ -1,5 +1,7 @@
 import axios from "axios";
+
 export const AxiosIntance = axios.create({
-    baseURL:procees.env.base_url,
+    baseURL:"http://localhost:5000/api",
     withCredentials:true
+    
 }) 

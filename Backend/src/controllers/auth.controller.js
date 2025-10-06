@@ -6,8 +6,8 @@ const emailTemplate = require("../utils/emailTemplate")
 const {sendMail} = require("../services/mail.service");
 const registerController = async (req, res) => {
   try {
-    const { mobile, email, password, fullname, username } = req.body;
-    if (!mobile || !email || !password || !fullname || !username) {
+    const { mobile, email, password, fullName, username } = req.body;
+    if ((!mobile || !email) || !password || !fullName || !username) {
       return res.status(422).json({
         msg: "all feilds are required..",
       });
@@ -23,7 +23,7 @@ const registerController = async (req, res) => {
     }
 
     const newUser = await userModel.create({
-      fullname,
+      fullName,
       email,
       username,
       password,
@@ -74,6 +74,8 @@ const loginController = async (req, res) => {
     const token = user.JWTTokenGenration();
 
     res.cookie("token", token);
+    console.log("user logged in ");
+    
     return res.status(200).json({
       msg: "user logged in succefully",
       user: user,

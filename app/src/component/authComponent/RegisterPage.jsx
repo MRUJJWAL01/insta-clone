@@ -1,5 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { fetchRegisterThunk } from "../../features/actions/AuthAction";
+import { data } from "react-router";
 
 export default function RegisterPage({ setToggle }) {
   const {
@@ -7,15 +10,25 @@ export default function RegisterPage({ setToggle }) {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const dispatch = useDispatch();
 
   const onSubmit = (data) => {
     // Handle sign up logic here
     console.log("Sign up attempted with:", data);
+    dispatch(fetchRegisterThunk({
+  "email": "sam@email.com",
+  "fullName": "Sample User",
+  "password": "safe_password", 
+  "username": "sampleu"
+}))
+
   };
 
-  const handleFacebookLogin = () => {
+  const handleFacebookLogin = (data) => {
     // Handle Facebook login logic here
     console.log("Facebook login attempted");
+    dispatch(fetchRegisterThunk(data));
+
   };
 
   return (
@@ -27,7 +40,7 @@ export default function RegisterPage({ setToggle }) {
             <div className="flex justify-center items-center">
               {/* SVG logo omitted for brevity; keep yours as is */}
             </div>
-            <p className="text-gray-400 text-base font-semibold leading-tight">
+            <p className="text-[#A8A8A8] text-base font-semibold leading-tight">
               Sign up to see photos and videos from your friends.
             </p>
           </div>
@@ -36,7 +49,7 @@ export default function RegisterPage({ setToggle }) {
           <button
             type="button"
             onClick={handleFacebookLogin}
-            className="w-full flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded text-sm mb-6 transition-colors duration-200"
+            className="w-full flex items-center justify-center space-x-2 bg-[#4150F7] text-white font-semibold py-2 px-4 rounded text-sm mb-6 transition-colors duration-200"
           >
             {/* Facebook SVG icon omitted; keep yours as is */}
             <span>Log in with Facebook</span>

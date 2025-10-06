@@ -1,4 +1,3 @@
-import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import AuthLayout from '../layout/AuthLayout'
 import HomeLayout from '../layout/HomeLayout'
@@ -8,6 +7,10 @@ import Message from '../pages/MessagePage'
 import MessageLayout from '../layout/MessageLayout'
 import MessagePage from '../pages/MessagePage'
 import ForgotPass from '../component/authComponent/ForgotPass'
+import SearchPage from '../pages/SearchPage'
+import ReelsPage from '../pages/ReelsPage'
+import NotificationPage from '../pages/NotificationPage'
+import ProfilePage from '../pages/ProfilePage'
 
 const AppRouter = () => {
     const router = createBrowserRouter([
@@ -29,8 +32,24 @@ const AppRouter = () => {
                     element:<HomePage />
                 },
                 {
+                    path:"search",
+                    element:<SearchPage />
+                },
+                {
+                    path:"reels",
+                    element:<ReelsPage />
+                },
+                {
                     path:"explore",
                     element:<Explore />
+                },
+                {
+                    path:"profile",
+                    element:<ProfilePage />
+                },
+                {
+                    path:"notifications",
+                    element:<NotificationPage />
                 },
                  {
                     path:"message",
