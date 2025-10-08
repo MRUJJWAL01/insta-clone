@@ -100,13 +100,15 @@ const getAllPostController = async (req, res) => {
 };
 const getLoggedinUserPosts = async (req, res) => {
   try {
-    let user_id = req.user.id
-    if(!user_id) return res.status(404).json({Msg:"User id not found"});
-    let loggedinUserPosts = await userModel.findById(req.user.id).populate("posts");
+    let user_id = req.user.id;
+    if (!user_id) return res.status(404).json({ Msg: "User id not found" });
+    let loggedinUserPosts = await userModel
+      .findById(req.user.id)
+      .populate("posts");
     return res.status(200).json({
-        msg:"User posts found",
-        userPosts:loggedinUserPosts
-    })
+      msg: "User posts found",
+      userPosts: loggedinUserPosts,
+    });
   } catch (error) {
     console.log("error in get logged in user's posts->", error);
     return res.status(500).json({
@@ -119,12 +121,11 @@ const getLoggedinUserPosts = async (req, res) => {
 const deletePost = async (req, res) => {
   try {
     let post_id = req.params.post_id;
-    if(!post_id) return res.status(404).json("post not found");
+    if (!post_id) return res.status(404).json("post not found");
     await PostModel.findByIdAndDelete(post_id);
     return res.status(200).json({
-        msg:"post is deleted",
-    })
-
+      msg: "post is deleted",
+    });
   } catch (error) {
     console.log("error in delete post->", error);
 
@@ -135,11 +136,60 @@ const deletePost = async (req, res) => {
   }
 };
 
+const linkeController = async (req, res) => {
+  try {
+    let post_id = req.params.post_id;
+    if (!post_id) {
+      return res.status(404).json({
+        msg: "Post id not found",
+      });
+    }
+    let currentPost = await PostModel.findById(post_id);
+    currentPost.likes.push(req.user._id);
+    currentPost.save();
+    return res.status(200).json({
+      msg: "post liked",
+    });
+  } catch (error) {
+    console.log("error in delete post->", error);
+
+    return res.status(500).json({
+      message: "Internal server error",
+      error: error,
+    });
+  }
+};
+const unlikeController = async(req , res)=>{
+  try {
+    let post_id = req.params.post_id;
+    if(!post_id){
+      return res.status(404).json({
+        msg:"post id not found",
+      })
+    }
+    let currentPost = await PostModel.findById(post_id);
+    currentPost.likes.splice(req.user._id,1);
+    currentPost.save();
+
+
+    
+  } catch (error) {
+     console.log("error in delete post->", error);
+
+    return res.status(500).json({
+      message: "Internal server error",
+      error: error,
+    });
+  }
+}
+
 module.exports = {
   creatPostController,
   upodatePostController,
   getAllPostController,
   getLoggedinUserPosts,
   deletePost,
+  linkeController,
+  unlikeController
 
 };

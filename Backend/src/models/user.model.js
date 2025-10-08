@@ -7,12 +7,14 @@ const userSchema = new mongoose.Schema(
     mobile: {
       type: String,
       unique: true,
+      sparse: true,
       minlength: 10,
       maxlenght: 10,
     },
     email: {
       type: String,
       unique: true,
+      sparse: true,
     },
     fullName: {
       type: String,
@@ -60,6 +62,11 @@ userSchema.pre("save", async function (next) {
   let hashpass = await bcrypt.hash(this.password, 10);
   this.password = hashpass;
   next();
+});
+userSchema.pre("validate", function (next) {
+  if ((this.email && this.mobile) || (!this.email && !this.mobile))
+    next(new Error("Provide ether email or mobile, but not both or neigther"));
+  else next();
 });
 
 userSchema.methods.JWTTokenGenration = function () {

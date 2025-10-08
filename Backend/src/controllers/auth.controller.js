@@ -2,21 +2,35 @@ const userModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const cacheClient = require("../services/chache.service");
-const emailTemplate = require("../utils/emailTemplate")
-const {sendMail} = require("../services/mail.service");
+const emailTemplate = require("../utils/emailTemplate");
+const { sendMail } = require("../services/mail.service");
 const registerController = async (req, res) => {
   try {
     const { mobile, email, password, fullName, username } = req.body;
-    if ((!mobile || !email) || !password || !fullName || !username) {
+
+    if (!fullName || !username || !password) {
       return res.status(422).json({
-        msg: "all feilds are required..",
+        message: "All fields are required",
       });
     }
-    
-    const userExist = await userModel.findOne({
-      $or: [{ email }, { username }, { mobile }],
-    });
-    if (userExist) {
+    if ((!email && !mobile) || (email && mobile)) {
+      return res.status(400).json({
+        msg: "Provide exactly one of email or mobile",
+      });
+    }
+    const query = [{ username }];
+    if (email) query.push({ email });
+    if (mobile) query.push({ mobile });
+
+    let existUser = await userModel.findOne({ $or: query });
+
+    if (existUser) {
+      return res.status(409).json({
+        msg: "user already exist",
+      });
+    }
+
+    if (existUser) {
       return res.status(409).json({
         msg: "user already exist",
       });
@@ -35,9 +49,9 @@ const registerController = async (req, res) => {
         error: error,
       });
     }
+
     let token = newUser.JWTTokenGenration();
     res.cookie("token", token);
-    console.log(token);
 
     return res.status(201).json({
       msg: "user created succefully",
@@ -75,7 +89,7 @@ const loginController = async (req, res) => {
 
     res.cookie("token", token);
     console.log("user logged in ");
-    
+
     return res.status(200).json({
       msg: "user logged in succefully",
       user: user,
@@ -105,8 +119,8 @@ const logOutController = async (req, res) => {
       msg: "user logged out succefully",
     });
   } catch (error) {
-    console.log("error in logut---------->",error);
-    
+    console.log("error in logut---------->", error);
+
     return res.status(500).json({
       msg: "internal server error",
       error: error,
@@ -132,7 +146,7 @@ const forgotPasscontroller = async (req, res) => {
     let resetLink = `http://localhost:3000/api/auth/reset-password/${rawToken}`;
 
     let resetTemplate = emailTemplate({ username: user.username, resetLink });
-  
+
     let response = await sendMail(
       "ujjwalc456@gmail.com",
       "Reset password",
@@ -144,7 +158,7 @@ const forgotPasscontroller = async (req, res) => {
     return res.send("ok");
   } catch (error) {
     console.log(error);
-    
+
     return res.status(500).json({
       msg: "internal server error",
       error: error,

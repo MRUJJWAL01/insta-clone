@@ -1,10 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { fetchRegisterThunk } from "../../features/actions/AuthAction";
-import { data } from "react-router";
+import { fetchRegisterApi } from "../../features/actions/AuthAction";
+import { useNavigate } from "react-router";
 
 export default function RegisterPage({ setToggle }) {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -13,22 +15,22 @@ export default function RegisterPage({ setToggle }) {
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    // Handle sign up logic here
-    console.log("Sign up attempted with:", data);
-    dispatch(fetchRegisterThunk({
-  "email": "sam@email.com",
-  "fullName": "Sample User",
-  "password": "safe_password", 
-  "username": "sampleu"
-}))
+    try {
+      let res = dispatch(fetchRegisterApi(data));
+      if (res) console.log("registered from regPage");
+      navigate("/login");
 
+      
+    } catch (error) {
+      console.log("error in register user", error);
+    }
+    // Handle sign up logic here
   };
 
   const handleFacebookLogin = (data) => {
     // Handle Facebook login logic here
     console.log("Facebook login attempted");
     dispatch(fetchRegisterThunk(data));
-
   };
 
   return (
@@ -144,7 +146,7 @@ export default function RegisterPage({ setToggle }) {
                   id="username"
                   type="text"
                   placeholder="Username"
-                 className={`w-full px-3 py-2.5 bg-[#121212] border border-[#363636] rounded text-white placeholder-gray-500 text-xs focus:outline-none focus:border-gray-500 ${
+                  className={`w-full px-3 py-2.5 bg-[#121212] border border-[#363636] rounded text-white placeholder-gray-500 text-xs focus:outline-none focus:border-gray-500 ${
                     errors.fullName ? "border-red-600" : ""
                   }`}
                   {...register("username", {

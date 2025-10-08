@@ -11,9 +11,19 @@ import SearchPage from '../pages/SearchPage'
 import ReelsPage from '../pages/ReelsPage'
 import NotificationPage from '../pages/NotificationPage'
 import ProfilePage from '../pages/ProfilePage'
+import RegisterPage from '../component/authComponent/RegisterPage'
+import LoginPage from '../component/authComponent/LoginPage'
 
 const AppRouter = () => {
     const router = createBrowserRouter([
+        {
+            path:"/accounts/emailsignup/",
+            element:<RegisterPage />
+        },
+        {
+            path:"/login",
+            element:<LoginPage />
+        },
         {
             path:"/",
             element:<AuthLayout />,

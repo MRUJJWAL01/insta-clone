@@ -16,7 +16,7 @@ const authMiddleware = async (req, res, next) => {
         msg: "token blacklisted or expired",
       });
     }
-    let decode = jwt.verify(token, process.env.Secret_Key);
+    let decode = jwt.verify(token, process.env.JWT_SECRET);
     if (!decode) {
       {
         return res.status(403).json({

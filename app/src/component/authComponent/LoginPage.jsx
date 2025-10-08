@@ -1,10 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { loginUserApi } from "../../features/actions/AuthAction";
+
 
 export default function LoginPage({ setToggle }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -21,11 +23,11 @@ export default function LoginPage({ setToggle }) {
     if (isUsername(value)) return "username";
     return "unknown";
   }
+  
 
   // Hook form handles state, login logic on submit
   const onSubmit = ({ identity, password }) => {
     const type = getIdentifierType(identity);
-
     let payload = {};
     if (type === "email") {
       payload = { email: identity, password };
@@ -36,12 +38,12 @@ export default function LoginPage({ setToggle }) {
     } else {
       return console.error("Invalid identity type");
     }
-
-    console.log("Payload:", payload);
-
+    console.log(payload);
+    
     dispatch(loginUserApi(payload));
+    navigate("/home")
   };
-
+  
   return (
     <div className="flex items-center justify-center p-4 ">
       <div className="w-full max-w-sm pt-12 px-5">

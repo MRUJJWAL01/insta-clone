@@ -15,6 +15,12 @@ const postSchema = new mongoose.Schema({
   caption: {
     type: String,
   },
+  likes:[
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref:"user"
+    }
+  ],
   tags: [
     {
       type: mongoose.Schema.Types.ObjectId,

@@ -29,7 +29,7 @@ const HomeLayout = () => {
           <NavbarLinks />
         </div>
       </aside>
-      <div className=" h-full w-[84%]">
+      <div className=" h-full w-[84%] overflow-auto">
         <Outlet />
       </div>
     </div>
