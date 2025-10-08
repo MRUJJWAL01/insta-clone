@@ -1,24 +1,32 @@
 import React, { useState } from 'react';
 import InstagramFooter from '../component/footer/InstagramFooter';
 import MessageButton from '../component/messages/MessageButton';
+import { useSelector } from 'react-redux';
 
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState('posts');
 
+
+
   const stories = [
-    { id: 1, label: 'old memories', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop' },
-    { id: 2, label: 'enjoyment', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop' },
-    { id: 3, label: 'Highlights', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop' },
-    { id: 4, label: 'Highlights', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop' },
+    // { id: 1, label: 'old memories', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop' },
+    // { id: 2, label: 'enjoyment', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop' },
+    // { id: 3, label: 'Highlights', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop' },
+    // { id: 4, label: 'Highlights', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop' },
     { id: 5, label: 'brother', image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop' },
     { id: 6, label: 'New', isNew: true }
   ];
 
   const posts = [
-    { id: 1, image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=400&fit=crop' },
-    { id: 2, image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop' },
-    { id: 3, image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop' }
+    // { id: 1, image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=400&fit=crop' },
+    // { id: 2, image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop' },
+    // { id: 3, image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop' }
   ];
+
+    const { user, isLoggedin } = useSelector((state) => state.auth);
+    console.log(user);
+    
+    
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -28,7 +36,7 @@ export default function ProfilePage() {
           {/* Profile Picture */}
           <div className="relative">
             <img
-              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop"
+              src=""
               alt="Profile"
               className="w-36 h-36 rounded-full object-cover border-2 border-gray-700"
             />
@@ -40,7 +48,7 @@ export default function ProfilePage() {
           {/* Profile Info */}
           <div className="flex-1">
             <div className="flex items-center gap-4 mb-6">
-              <h1 className="text-xl font-light">ujjwalxchouhan</h1>
+              <h1 className="text-xl font-light">{user?.username}</h1>
               <button className="px-4 py-1.5 bg-gray-800 text-white text-sm font-semibold rounded-lg hover:bg-gray-700 transition-colors">
                 Edit profile
               </button>
@@ -59,30 +67,30 @@ export default function ProfilePage() {
             {/* Stats */}
             <div className="flex gap-10 mb-6">
               <div className="text-sm">
-                <span className="font-semibold">3</span> posts
+                <span className="font-semibold">0</span> posts
               </div>
               <div className="text-sm cursor-pointer hover:text-gray-300">
-                <span className="font-semibold">512</span> followers
+                <span className="font-semibold">{user?.followers.length}</span> followers
               </div>
               <div className="text-sm cursor-pointer hover:text-gray-300">
-                <span className="font-semibold">280</span> following
+                <span className="font-semibold">{user?.following.length}</span> following
               </div>
             </div>
 
             {/* Bio */}
-            <div className="text-sm">
-              <p className="font-semibold mb-1">Ujjwal Rajput</p>
+            <div className="text-lg">
+              <p className="font-semibold mb-1">{user?.fullName}</p>
               <div className="flex items-center gap-2 text-gray-400">
                 <div className="bg-gray-700 rounded-full px-2 py-0.5 text-xs flex items-center gap-1">
                   <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
                     <circle cx="12" cy="12" r="3"/>
                   </svg>
-                  ujjwalxchouhan
+                  {/* ujjwalxchouhan */}
                 </div>
               </div>
               <a href="#" className="text-blue-400 hover:text-blue-300 text-sm mt-2 inline-block">
-                ujjwals-portfolio.vercel.app
+                {/* ujjwals-portfolio.vercel.app */}
               </a>
             </div>
           </div>

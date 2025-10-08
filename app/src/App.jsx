@@ -8,16 +8,17 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    try {
-      (async () => {
-        let res = await AxiosIntance.get("/auht/me");
+    (async () => {
+      try {
+        let res = await AxiosIntance.get("/auth/me");
         if (res) {
-          dispatch(addUser(req.data.user));
+          console.log(res);
+          dispatch(addUser(res.data.user));
         }
-      })();
-    } catch (error) {
-      console.log(error);
-    }
+      } catch (error) {
+        console.log(error);
+      }
+    })();
   }, [dispatch]);
   return (
     <div className="h-screen bg-black ">

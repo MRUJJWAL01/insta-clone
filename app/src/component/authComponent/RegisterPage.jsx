@@ -6,7 +6,6 @@ import { useNavigate } from "react-router";
 
 export default function RegisterPage({ setToggle }) {
   const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -114,6 +113,7 @@ export default function RegisterPage({ setToggle }) {
                   </p>
                 )}
               </div>
+              
 
               <div>
                 <label htmlFor="fullName" className="sr-only">

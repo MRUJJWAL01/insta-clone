@@ -82,9 +82,32 @@ const blockController = async(req,res)=>{
   }
 }
 
+const getAlluserController = async(req,res)=>{
+  try {
+    let currentUser = req.user.id;
+    console.log(currentUser);
+    
+    let allUsers = await userModel.find({_id:{$ne: currentUser}});
+    console.log(allUsers);
+    return res.status(200).json({
+      msg:"fetched all user",
+      allUsers:allUsers
+    })
+    
+    
+  } catch (error) {
+     return res.status(500).json({
+      message: "internal server error",
+      error: error,
+    });
+  }
+}
+
+
 module.exports = {
   followController,
   unfollowController,
-  blockController
+  blockController,
+  getAlluserController
 
 }

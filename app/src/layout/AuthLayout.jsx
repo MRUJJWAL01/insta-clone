@@ -8,14 +8,15 @@ import { useSelector } from 'react-redux';
 
 const AuthLayout = () => {
     const [toggle, setToggle] = useState(true);
-   const { user, isLoggedin } = useSelector((state) => state.auth);
+   const { user, isLoggedIn } = useSelector((state) => state.auth);
     const navigate  =useNavigate();
     useEffect(()=>{
-      if(isLoggedin){
+      if(user !== null && isLoggedIn ){
         navigate("/home");
       }
 
-    },[user])
+    },[user,isLoggedIn])
+    
   return (
     <div className=' h-screen bg-black'>
         {toggle? <LoginPage setToggle={setToggle} /> : <RegisterPage setToggle={setToggle} />}

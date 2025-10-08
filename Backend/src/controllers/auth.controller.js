@@ -71,15 +71,15 @@ const loginController = async (req, res) => {
   try {
     const { email, password, username, mobile } = req.body;
     const user = await userModel.findOne({
-      $or: [{ email }, { mobile }, { username }],
+      // $or: [{ email }, { mobile }, { username }],
+      username
     });
-    if (!user) {
+    if(!user){
       return res.status(404).json({
-        msg: "user not found",
-      });
+        msg:"user not found",
+      })
     }
-
-    const decryptPass = await user.comparePassword;
+    const decryptPass = await bcrypt.compare(password,user.password);
     if (!decryptPass) {
       return res.status(401).json({
         msg: "invalid credential",

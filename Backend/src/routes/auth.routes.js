@@ -9,7 +9,9 @@ const authMiddleware = require("../middlwares/auth.middleware");
 const userModel = require("../models/user.model");
 const router = express.Router();
 
-router.get("/me", (req, res) => {
+router.get("/me",authMiddleware, (req, res) => {
+  console.log(req.user);
+  
   return res.status(200).json({
     msg: "current logged in user ",
     user: req.user,

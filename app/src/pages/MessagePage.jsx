@@ -2,6 +2,7 @@ import { MessageCircle } from "lucide-react";
 
 export default function MessagePage() {
   return (
+    <>
     <div className="flex flex-col items-center justify-center min-h-screen bg-black">
       {/* Circular icon */}
       <div className="flex items-center justify-center w-24 h-24 rounded-full border-2 border-white mb-5">
@@ -29,6 +30,7 @@ export default function MessagePage() {
         Send message
       </button>
     </div>
+    </>
   );
 }
 

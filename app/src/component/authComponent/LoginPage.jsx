@@ -38,10 +38,8 @@ export default function LoginPage({ setToggle }) {
     } else {
       return console.error("Invalid identity type");
     }
-    console.log(payload);
-    
     dispatch(loginUserApi(payload));
-    navigate("/home")
+    console.log("logg in");
   };
   
   return (
