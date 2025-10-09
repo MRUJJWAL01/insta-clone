@@ -10,7 +10,7 @@ const userModel = require("../models/user.model");
 const router = express.Router();
 
 router.get("/me",authMiddleware, (req, res) => {
-  console.log(req.user);
+  // console.log(req.user);
   
   return res.status(200).json({
     msg: "current logged in user ",
@@ -36,7 +36,7 @@ router.post("/update-password/:id", async (req, res) => {
     let id = req.params.id;
     let password = req.body.password;
 
-    console.log("user password", password, id);
+    // console.log("user password", password, id);
 
     if (!id) {
       return res.status(404)({

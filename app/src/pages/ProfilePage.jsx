@@ -24,7 +24,7 @@ export default function ProfilePage() {
   ];
 
     const { user, isLoggedin } = useSelector((state) => state.auth);
-    console.log(user);
+    // console.log(user);
     
     
 
@@ -36,7 +36,7 @@ export default function ProfilePage() {
           {/* Profile Picture */}
           <div className="relative">
             <img
-              src=""
+              src={user.dp}
               alt="Profile"
               className="w-36 h-36 rounded-full object-cover border-2 border-gray-700"
             />

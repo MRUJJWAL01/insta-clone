@@ -12,7 +12,7 @@ const App = () => {
       try {
         let res = await AxiosIntance.get("/auth/me");
         if (res) {
-          console.log(res);
+          // console.log(res);
           dispatch(addUser(res.data.user));
         }
       } catch (error) {

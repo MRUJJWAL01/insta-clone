@@ -11,7 +11,7 @@ const FollowCard = ({elem}) => {
     try {
       let res = await AxiosIntance.get(`/user/follow/${elem._id}`)
       if(res){
-        console.log("followed");
+        // console.log("followed");
         setFollow(true);
       }
     } catch (error) {
@@ -23,7 +23,7 @@ const FollowCard = ({elem}) => {
     try {
       let res = await AxiosIntance.get(`/user/unfollow/${elem._id}`)
       if(res){
-        console.log("unfollowed");
+        // console.log("unfollowed");
         setFollow(false);
       }
     } catch (error) {

@@ -1,37 +1,139 @@
 import { MessageCircle } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Phone, Video, Info, Smile, Image, Heart, Mic } from "lucide-react";
+import { useLocation, useParams } from "react-router";
+import { io } from "socket.io-client";
 
 export default function MessagePage() {
+  const socket = io("http://localhost:5000");
+  const [message, setMessage] = useState("");
+  const [sendMsg, setSendMsg] = useState(null);
+  const { state } = useLocation();
+  const userData = state?.user;
+  // console.log(userData);
+  // console.log("socket-------->", socket);
+  useEffect(()=>{
+    if(message.trim()!== ""){
+      socket.emit("chat",message);
+      console.log(message);
+      
+    }
+  },[sendMsg])
+
   return (
     <>
-    <div className="flex flex-col items-center justify-center min-h-screen bg-black">
-      {/* Circular icon */}
-      <div className="flex items-center justify-center w-24 h-24 rounded-full border-2 border-white mb-5">
-        <svg
-          aria-label=""
-          class="x1lliihq x1n2onr6 xyb1xck"
-          fill="currentColor"
-          height="96"
-          role="img"
-          viewBox="0 0 96 96"
-          width="96"
-        >
-          <title></title>
-          <path d="M48 0C21.532 0 0 21.533 0 48s21.532 48 48 48 48-21.532 48-48S74.468 0 48 0Zm0 94C22.636 94 2 73.364 2 48S22.636 2 48 2s46 20.636 46 46-20.636 46-46 46Zm12.227-53.284-7.257 5.507c-.49.37-1.166.375-1.661.005l-5.373-4.031a3.453 3.453 0 0 0-4.989.921l-6.756 10.718c-.653 1.027.615 2.189 1.582 1.453l7.257-5.507a1.382 1.382 0 0 1 1.661-.005l5.373 4.031a3.453 3.453 0 0 0 4.989-.92l6.756-10.719c.653-1.027-.615-2.189-1.582-1.453ZM48 25c-12.958 0-23 9.492-23 22.31 0 6.706 2.749 12.5 7.224 16.503.375.338.602.806.62 1.31l.125 4.091a1.845 1.845 0 0 0 2.582 1.629l4.563-2.013a1.844 1.844 0 0 1 1.227-.093c2.096.579 4.331.884 6.659.884 12.958 0 23-9.491 23-22.31S60.958 25 48 25Zm0 42.621c-2.114 0-4.175-.273-6.133-.813a3.834 3.834 0 0 0-2.56.192l-4.346 1.917-.118-3.867a3.833 3.833 0 0 0-1.286-2.727C29.33 58.54 27 53.209 27 47.31 27 35.73 36.028 27 48 27s21 8.73 21 20.31-9.028 20.31-21 20.31Z"></path>
-        </svg>{" "}
+      <div className="h-screen bg-black flex flex-col">
+        {/* Header */}
+        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-800">
+          <div className="flex items-center gap-3">
+            <img
+              src={
+                userData.dp ||
+                "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop"
+              }
+              alt="Profile"
+              className="w-10 h-10 rounded-full object-cover"
+            />
+            <div>
+              <h2 className="text-white font-semibold text-sm">
+                {userData.fullName}
+              </h2>
+              <p className="text-gray-400 text-xs">{userData.username}</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <button className="text-white hover:text-gray-300 transition-colors">
+              <Phone size={22} />
+            </button>
+            <button className="text-white hover:text-gray-300 transition-colors">
+              <Video size={24} />
+            </button>
+            <button className="text-white hover:text-gray-300 transition-colors">
+              <Info size={24} />
+            </button>
+          </div>
+        </div>
+
+        {/* Messages Area */}
+        <div className="flex-1 overflow-y-auto flex flex-col items-center justify-center px-4 relative">
+          {/* Profile Card - Moved up */}
+          <div className="flex flex-col items-center text-center mb-8 -mt-32">
+            <img
+              src={
+                userData.dp ||
+                "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&h=150&fit=crop"
+              }
+              alt="Profile"
+              className="w-24 h-24 rounded-full object-cover mb-4"
+            />
+            <h3 className="text-white font-semibold text-xl mb-1">
+              {userData.fullName}
+            </h3>
+            <p className="text-gray-400 text-sm mb-4">
+              {userData.username} · Instagram
+            </p>
+            <button className="bg-gray-700 hover:bg-gray-600 text-white px-8 py-2 rounded-lg font-semibold transition-colors">
+              View profile
+            </button>
+          </div>
+
+          {/* Centered Timestamp */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 bottom-32">
+            <div className="text-gray-500 text-xs text-center">
+              Sep 11, 2025, 6:18 PM
+            </div>
+          </div>
+
+          {/* Story Reaction - Bottom Left Corner */}
+          <div className="absolute bottom-8 left-4">
+            <div className="flex items-center gap-2 text-gray-400 text-sm">
+              <img
+                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=40&h=40&fit=crop"
+                alt="Small profile"
+                className="w-6 h-6 rounded-full object-cover"
+              />
+              <Heart size={14} className="fill-red-500 text-red-500" />
+              <span>Reacted to @Ujjwal Rajput's story</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Message Input */}
+        <div className="px-4 py-3 border-t border-gray-800">
+          <div className="flex items-center gap-3 bg-black rounded-full px-4 py-2.5 border border-gray-700">
+            <button className="text-white hover:text-gray-300 transition-colors">
+              <Smile size={24} />
+            </button>
+
+            <input
+              type="text"
+              placeholder="Message..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              className="flex-1 bg-#000000 text-white text-sm placeholder-[gray-500] outline-none"
+            />
+
+            {message.length > 0 ? (
+              <button onClick={()=> setSendMsg(message)} className="text-blue-500 font-semibold text-sm hover:text-blue-400 transition-colors">
+                Send
+              </button>
+            ) : (
+              <div className="flex items-center gap-3">
+                <button className="text-white hover:text-gray-300 transition-colors">
+                  <Mic size={24} />
+                </button>
+                <button className="text-white hover:text-gray-300 transition-colors">
+                  <Image size={24} />
+                </button>
+                <button className="text-white hover:text-gray-300 transition-colors">
+                  <Heart size={24} />
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-      {/* Headline */}
-      <div className="text-white text-xl mb-1 font-normal">Your messages</div>
-      {/* Subheadline */}
-      <div className="text-[#A8A8A8] text-sm mb-5">
-        Send a message to start a chat.
-      </div>
-      {/* Call-to-action button */}
-      <button className=" bg-[#4150F7] cursor-pointer text-white font-medium py-1 px-4 rounded-lg text-base transition">
-        Send message
-      </button>
-    </div>
     </>
   );
 }
-
-

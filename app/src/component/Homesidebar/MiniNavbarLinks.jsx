@@ -234,7 +234,7 @@ export default function MiniNavbarLinksMapped() {
         ))}
       </div>
 
-      <style jsx>{`
+      <style jsx="true">{`
         @keyframes slideIn {
           from {
             opacity: 0;

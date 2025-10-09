@@ -5,35 +5,36 @@ const path = require("path");
 const socketIo = require("socket.io");
 const cacheClient = require("./src/services/chache.service");
 const connectDb = require("./src/db/db");
+const cors = require("cors");
+const server = http.createServer(app);
+
+
+const port = process.env.PORT || 3000;
 connectDb();
 
 
-const server = http.createServer(app);
+cacheClient.on("connect", () => {
+  console.log("Redis connected successfully");
+});
+cacheClient.on("error", (error) => {
+  console.log("error in connecting ioreds", error);
+});
 
-cacheClient.on("connect",()=>{
-    console.log("Redis connected successfully");
-})
-cacheClient.on("error",(error)=>{
-    console.log("error in connecting ioreds", error);
-    
-})
+const io = socketIo(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"],
+    Credential: true,
+  },
+});
 
-const io = socketIo(server);
+io.on("connection", (socket) => {
+  console.log("connection establish", socket.id);
+  socket.on("chat", (msg) => {
+    console.log("msg received from client", msg);
+  });
+});
 
-const port = process.env.PORT || 3000;
-
-
-
-io.on("connection",(socket)=>{
-    console.log("connection establish",socket.id);
-    socket.on("chat",(msg)=>{
-        console.log("msg received from client",msg);
-    })
-})
-
-
-
-server.listen(port, ()=>{
-    console.log("server is running on",port);
-    
-})
+server.listen(port, () => {
+  console.log("server is running on", port);
+});

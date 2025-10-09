@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema(
   {
@@ -30,12 +30,17 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+   
     post: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "posts",
       },
     ],
+     dp:{
+      type:String,
+      default:""
+    },
     followers: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -58,11 +63,13 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+
 userSchema.pre("save", async function (next) {
-  let hashpass = await bcrypt.hash(this.password, 10);
-  this.password = hashpass;
+  if (!this.isModified("password")) return next();  // ✅ Only hash when password changed
+  this.password = await bcrypt.hash(this.password, 10);
   next();
 });
+
 userSchema.pre("validate", function (next) {
   if ((this.email && this.mobile) || (!this.email && !this.mobile))
     next(new Error("Provide ether email or mobile, but not both or neigther"));
@@ -81,3 +88,10 @@ userSchema.methods.comparePassword = async function (pass) {
 
 const userModel = mongoose.model("user", userSchema);
 module.exports = userModel;
+
+
+
+  // expiresAt: {
+  //     type: Date,
+  //     default: () => Date.now() + 24 * 60 * 60 * 1000, // expires after 24 hrs
+  //   },

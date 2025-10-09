@@ -16,7 +16,9 @@ export default function RegisterPage({ setToggle }) {
   const onSubmit = (data) => {
     try {
       let res = dispatch(fetchRegisterApi(data));
-      if (res) console.log("registered from regPage");
+      if (res) {
+        // console.log("registered from regPage");
+      }
       navigate("/login");
 
       
@@ -28,7 +30,7 @@ export default function RegisterPage({ setToggle }) {
 
   const handleFacebookLogin = (data) => {
     // Handle Facebook login logic here
-    console.log("Facebook login attempted");
+    // console.log("Facebook login attempted");
     dispatch(fetchRegisterThunk(data));
   };
 

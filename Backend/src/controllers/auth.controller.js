@@ -1,6 +1,6 @@
 const userModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const cacheClient = require("../services/chache.service");
 const emailTemplate = require("../utils/emailTemplate");
 const { sendMail } = require("../services/mail.service");
@@ -79,7 +79,10 @@ const loginController = async (req, res) => {
         msg:"user not found",
       })
     }
-    const decryptPass = await bcrypt.compare(password,user.password);
+    const decryptPass = await user.comparePassword(password);
+    // console.log(decryptPass);
+    // console.log(password,"  " , user.password);
+    
     if (!decryptPass) {
       return res.status(401).json({
         msg: "invalid credential",
@@ -88,7 +91,7 @@ const loginController = async (req, res) => {
     const token = user.JWTTokenGenration();
 
     res.cookie("token", token);
-    console.log("user logged in ");
+    // console.log("user logged in ");
 
     return res.status(200).json({
       msg: "user logged in succefully",
@@ -153,7 +156,7 @@ const forgotPasscontroller = async (req, res) => {
       resetTemplate
     );
 
-    console.log(response);
+    // console.log(response);
 
     return res.send("ok");
   } catch (error) {

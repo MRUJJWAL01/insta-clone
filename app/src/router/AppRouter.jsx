@@ -18,8 +18,8 @@ import ProtectedRoute from "../component/authComponent/ProtectedRoute";
 const AppRouter = () => {
   const router = createBrowserRouter([
     {
-      path:'/login',
-      element:<LoginPage />
+      path: "/login",
+      element: <LoginPage />,
     },
     {
       path: "/",
@@ -66,7 +66,7 @@ const AppRouter = () => {
               element: <MessageLayout />,
               children: [
                 {
-                  path: "",
+                  path: "chat/:id",
                   element: <MessagePage />,
                 },
               ],
