@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { getAllUsers } from '../apis/UserApis'
-import FollowCard from '../component/userComponent/FollowCard'
+import FollowCard from '../component/HomeComponent/RigthSideBar'
+import StoriesUI from '../component/HomeComponent/StoriesUI'
+import RigthSideBar from '../component/HomeComponent/RigthSideBar'
+import PostUI from '../component/HomeComponent/PostUi'
 
 const HomePage = () => {
   const [allUsers, setAllUsers] = useState(null)  
@@ -18,19 +21,16 @@ const HomePage = () => {
       fetchAllUsers();
     },[])
   return (
-    <div className="text-white flex">
-      <div className="w-[70%] h-[100%] bg-green-300">Home feed</div>
-
-      <div className="px-4 py-10 flex flex-col gap-5">
-        <h1>Suggested for you</h1>
-
-        <div className="flex flex-col gap-5">
-          {allUsers
-            ? allUsers.map((elem) => {
-                return <FollowCard key={elem._id} elem={elem} />;
-              })
-            : "There is no any users"}
+    <div className="text-white flex ml-[24.5vw]  ">
+      <div className="w-[60%] h-[100%]"> 
+        <StoriesUI />
+        <div className='bg-black  ml-20  '>
+          <PostUI />
         </div>
+      </div>
+
+      <div className="w-[40%]">
+          <RigthSideBar />    
       </div>
     </div>
   );

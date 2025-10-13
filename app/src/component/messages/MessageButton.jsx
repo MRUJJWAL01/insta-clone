@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 const MessageButton = () => {
     const navigate = useNavigate();
   return (
-    <div onClick={()=>navigate("/home/message")} className="fixed bottom-6 right-6">
+    <div onClick={()=>navigate("/home/message")} className="fixed bottom-8 right-10">
       <button className="flex cursor-pointer items-center gap-3 bg-[#1D1C21] hover:bg-[#38393E] text-white px-6 py-3 rounded-full shadow-lg transition-colors relative">
         <div className="relative">
           <svg

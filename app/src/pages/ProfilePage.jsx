@@ -34,7 +34,7 @@ export default function ProfilePage() {
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="flex items-start gap-8 mb-12">
           {/* Profile Picture */}
-          <div className="relative">
+          <div className="">
             <img
               src={user.dp}
               alt="Profile"

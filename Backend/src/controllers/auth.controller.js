@@ -71,8 +71,8 @@ const loginController = async (req, res) => {
   try {
     const { email, password, username, mobile } = req.body;
     const user = await userModel.findOne({
-      // $or: [{ email }, { mobile }, { username }],
-      username
+    //  $or: [{ email }, { mobile }, { username }],
+    username
     });
     if(!user){
       return res.status(404).json({

@@ -67,7 +67,7 @@ export default function MessagesSidebar() {
 
         {/* Story Example */}
         <div className="flex flex-col cursor-pointer items-center">
-          <div className="relative w-18 h-18">
+          <div className=" w-18 h-18">
             <img
               className="rounded-full w-18 h-18 object-cover"
               src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d"
@@ -92,22 +92,17 @@ export default function MessagesSidebar() {
         {followings.map((user, id) => (
           <NavLink 
           to={`/home/message/chat/${id}`}
-          // onClick={()=> navigate("/profile")}
-            // onClick={() =>
-            //   // 
-            //   // navigate("/profile")
-            // }
             key={id}
             state={{user}}
             className={`flex items-center px-2 py-2 rounded-lg cursor-pointer transition
             ${user.unread ?"bg-[##121212]" : "hover:bg-[#121212]"}`}
           >
             {/* image */}
-            <div className="relative">
+            <div className="">
               <img
                 src= {user.dp|| "https://randomuser.me/api/portraits/men/10.jpg"}
                 alt="img"
-                className="w-16 h-16  rounded-full object-cover"
+                className="w-16 h-16   rounded-full object-cover"
               />
 
               {/* Unread dot */}

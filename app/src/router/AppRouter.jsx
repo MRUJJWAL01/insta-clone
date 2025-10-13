@@ -3,15 +3,11 @@ import AuthLayout from "../layout/AuthLayout";
 import HomeLayout from "../layout/HomeLayout";
 import HomePage from "../pages/HomePage";
 import Explore from "../pages/Explore";
-import Message from "../pages/MessagePage";
 import MessageLayout from "../layout/MessageLayout";
 import MessagePage from "../pages/MessagePage";
 import ForgotPass from "../component/authComponent/ForgotPass";
-import SearchPage from "../pages/SearchPage";
 import ReelsPage from "../pages/ReelsPage";
-import NotificationPage from "../pages/NotificationPage";
 import ProfilePage from "../pages/ProfilePage";
-import RegisterPage from "../component/authComponent/RegisterPage";
 import LoginPage from "../component/authComponent/LoginPage";
 import ProtectedRoute from "../component/authComponent/ProtectedRoute";
 
@@ -42,10 +38,6 @@ const AppRouter = () => {
               element: <HomePage />,
             },
             {
-              path: "search",
-              element: <SearchPage />,
-            },
-            {
               path: "reels",
               element: <ReelsPage />,
             },
@@ -56,10 +48,6 @@ const AppRouter = () => {
             {
               path: "profile",
               element: <ProfilePage />,
-            },
-            {
-              path: "notifications",
-              element: <NotificationPage />,
             },
             {
               path: "message",

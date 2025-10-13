@@ -1,17 +1,14 @@
 import MessagesSidebar from "../component/messages/MessagesSidebar";
 import { Outlet } from "react-router";
-import MiniNavbarLinks from "../component/Homesidebar/MiniNavbarLinks";
+import MainSideBar from "../component/HomeComponent/SideBar";
 const MessageLayout = () => {
  
   return (
-    <div className=" h-full flex absolute  top-[0%] left-[0%] w-full ">
-      <div className="w-[4.8%] border-r  border-zinc-800  bg-black">
-        <MiniNavbarLinks />
-      </div>
-      <div className="h-full w-[25.9%] ">
+    <div className="h-full  ml-20 flex  ">
+      <div className="h-full w-[25.5vw] ">
         <MessagesSidebar />
       </div>
-      <div className="w-[69.3%]">
+      <div className="w-[69.2vw]">
         <Outlet />
       </div>
     </div>

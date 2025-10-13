@@ -21,7 +21,7 @@ const App = () => {
     })();
   }, [dispatch]);
   return (
-    <div className="h-screen bg-black ">
+    <div className="min-h-screen bg-black ">
       <AppRouter />
     </div>
   );
