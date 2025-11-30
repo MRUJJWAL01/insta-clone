@@ -1,21 +1,12 @@
 import { useEffect, useRef } from "react";
-const AIStudioIcon = () => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <circle cx="8" cy="8" r="2" strokeWidth="2"/>
-    <circle cx="16" cy="8" r="2" strokeWidth="2"/>
-    <circle cx="8" cy="16" r="2" strokeWidth="2"/>
-    <circle cx="16" cy="16" r="2" strokeWidth="2"/>
-  </svg>
-);
-const PostIcon = () => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <rect x="3" y="3" width="18" height="18" rx="2" strokeWidth="2"/>
-    <line x1="9" y1="9" x2="15" y2="9" strokeWidth="2"/>
-    <line x1="9" y1="15" x2="15" y2="15" strokeWidth="2"/>
-  </svg>
-);
+import { AIStudioIcon, PostIcon } from "../../assets/Icons";
+
+
+//ksdf ksadf kasfaskdfj sadfk
+
 const CreateModal = ({ isOpen, onClose }) => {
   const modalRef = useRef(null);
+  
 
   useEffect(() => {
     const handleClickOutside = (event) => {

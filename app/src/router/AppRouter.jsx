@@ -13,10 +13,7 @@ import ProtectedRoute from "../component/authComponent/ProtectedRoute";
 
 const AppRouter = () => {
   const router = createBrowserRouter([
-    {
-      path: "/login",
-      element: <LoginPage />,
-    },
+   
     {
       path: "/",
       element: <AuthLayout />,
@@ -34,7 +31,7 @@ const AppRouter = () => {
           element: <HomeLayout />,
           children: [
             {
-              path: "homepage",
+              path: "",
               element: <HomePage />,
             },
             {

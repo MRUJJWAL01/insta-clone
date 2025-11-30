@@ -6,7 +6,7 @@ import MessageButton from "../component/messages/MessageButton";
 const HomeLayout = () => {
   return (
     <div className="min-h-screen w-full bg-black  text-white flex">
-      <aside className="border-r fixed border-zinc-700  ">
+      <aside className=" fixed border-zinc-700  ">
         <SideBar />
       </aside>
       <div className="h-full w-full">

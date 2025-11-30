@@ -1,67 +1,90 @@
 require("dotenv").config();
 const app = require("./src/app");
 const http = require("http");
-const path = require("path");
 const socketIo = require("socket.io");
-const cacheClient = require("./src/services/chache.service");
 const connectDb = require("./src/db/db");
+const cacheClient = require("./src/services/chache.service");
 const messageModel = require("./src/models/message.model");
-const server = http.createServer(app);
 
-const port = process.env.PORT || 3000;
+const server = http.createServer(app);
+const port = process.env.PORT || 5000;
+
+// ✅ Connect to DB
 connectDb();
 
+// ✅ Redis loggers
 cacheClient.on("connect", () => {
   console.log("Redis connected successfully");
 });
 cacheClient.on("error", (error) => {
-  console.log("error in connecting ioreds", error);
+  console.log("Error connecting Redis:", error);
 });
 
+// ✅ Initialize Socket.IO
 const io = socketIo(server, {
   cors: {
     origin: "http://localhost:5173",
     methods: ["GET", "POST"],
-    Credential: true,
+    credentials: true,
   },
 });
 
 const onlineUsers = [];
 
+// ✅ Socket events
 io.on("connection", (socket) => {
-  console.log("connection establish", socket.id);
+  console.log("✅ Socket connected:", socket.id);
+
+  // send socket id to client
   socket.emit("teke_SID", socket.id);
-  
-  socket.on("join-room", (chatUsers) => {
+
+  // 🧩 join room event
+  socket.on("join-room", async (chatUsers) => {
     socket.join(chatUsers.roomId);
-    if (chatUsers.socket_id) {
-      onlineUsers.push(chatUsers.socket_id);
+
+    if (chatUsers.socket_id) onlineUsers.push(chatUsers.socket_id);
+
+    console.log("📦 User joined room:", chatUsers.roomId);
+    console.log("🟢 Online users:", onlineUsers);
+
+    // 🧠 Fetch old messages from DB
+    try {
+      const oldMessages = await messageModel
+        .find({ room_id: chatUsers.roomId })
+        .sort({ createdAt: 1 });
+
+      // 📨 Send messages back
+      socket.emit("load-old-messages", oldMessages);
+    } catch (error) {
+      console.error("Error fetching old messages:", error);
     }
-    console.log("for my tracking purpose", onlineUsers);
-    console.log("user join with room id", chatUsers.roomId);
   });
+
+  // 📨 Handle send message
   socket.on("send-msg", async (msg) => {
-    console.log("incoming msg", msg);
-    if (msg) {
-      let newMessage = await messageModel.create({
+    console.log("💬 Incoming message:", msg);
+    try {
+      const newMessage = await messageModel.create({
         sender_id: msg.sender_id,
         receiver_id: msg.receiver_id,
         room_id: msg.roomId,
         content: msg.text,
       });
+
+      // ✅ Send saved message (with _id, timestamps)
+      io.to(msg.roomId).emit("receive-msg", newMessage);
+    } catch (error) {
+      console.error("Error saving message:", error);
     }
-    io.to(msg.roomId).emit("receive-msg", msg);
   });
 
-  socket.on("chat", (msg) => {
-    console.log("msg received from client", msg);
-    socket.emit("chat", "badia hai bhai");
-  });
+  // disconnect event
   socket.on("disconnect", () => {
-    console.log("user disconnect");
+    console.log("❌ User disconnected:", socket.id);
   });
 });
 
+// ✅ Start server
 server.listen(port, () => {
-  console.log("server is running on", port);
+  console.log(`🚀 Server is running on port ${port}`);
 });

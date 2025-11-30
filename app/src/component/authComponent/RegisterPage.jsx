@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { fetchRegisterApi } from "../../features/actions/AuthAction";
 import { useNavigate } from "react-router";
+import { InstagramLogo } from "../../assets/Icons";
 
 export default function RegisterPage({ setToggle }) {
   const navigate = useNavigate();
@@ -42,6 +43,7 @@ export default function RegisterPage({ setToggle }) {
           <div className="text-center mb-6">
             <div className="flex justify-center items-center">
               {/* SVG logo omitted for brevity; keep yours as is */}
+              <InstagramLogo />
             </div>
             <p className="text-[#A8A8A8] text-base font-semibold leading-tight">
               Sign up to see photos and videos from your friends.

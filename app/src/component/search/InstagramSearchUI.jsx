@@ -8,6 +8,7 @@ import {
   PlusSquare,
   Menu,
   Grid3x3,
+  X
 } from "lucide-react";
 
 const InstagramSearchUI = ({ isOpen, onClose }) => {
@@ -17,54 +18,42 @@ const InstagramSearchUI = ({ isOpen, onClose }) => {
   return (
     <div
       className={`${
-        isOpen ? "w-100" : "w-0"
-      } bg-black border-r border-gray-800 overflow-hidden transition-all duration-300`}
+        isOpen ? "w-107" : "w-0"
+      } bg-black rounded-2xl border-r border-[#363636] overflow-hidden transition-all duration-300`}
     >
-      <div className="p-6">
-        <h2 className="text-2xl font-semibold mb-6 text-white">Search</h2>
+      <div className="">
+        <div className="border-b border-[#222222] ">
+        <h2 className="text-2xl p-6 font-semibold mb-3 text-white">Search</h2>
 
         {/* Search Input */}
-        <div className="relative mb-8">
+        <div className="relative mb-6 px-4">
           <input
             type="text"
             placeholder="Search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-gray-800/50 rounded-lg px-4 py-2.5 pl-10 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-700"
+            className="w-full bg-[#363636] rounded-[8px]  py-2.5 pl-4  text-sm text-white placeholder-[#A8A8A8] outline-none"
           />
-          <svg
-            className="absolute left-3 top-2.5 text-gray-500 w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <circle cx="11" cy="11" r="8" strokeWidth="2" />
-            <path d="m21 21-4.35-4.35" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-          {searchQuery && (
+          <div className="absolute left-96 top-3 flex justify-center items-center rounded-full w-4 h-4  bg-[#C7C7C7]">
             <button
               onClick={() => setSearchQuery("")}
-              className="absolute right-3 top-2.5 text-gray-400 hover:text-white"
+              className=" cursor-pointer text-black hover:text-white"
             >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M10 9l3.5-3.5a.7.7 0 011 1L11 10l3.5 3.5a.7.7 0 01-1 1L10 11l-3.5 3.5a.7.7 0 01-1-1L9 10 5.5 6.5a.7.7 0 011-1L10 9z"
-                  clipRule="evenodd"
-                />
-              </svg>
+              <X size={10} />
             </button>
-          )}
+            </div>
+        
+        </div>
         </div>
 
         {/* Recent Section */}
-        <div>
+        <div className="p-6"> 
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold text-white">Recent</h3>
           </div>
 
-          <div className="flex items-center justify-center py-20">
-            <p className="text-gray-500 text-sm">No recent searches.</p>
+          <div className="flex items-center justify-center pt-60">
+            <p className="text-[#A8A8A8] font-bold text-sm">No recent searches.</p>
           </div>
         </div>
       </div>

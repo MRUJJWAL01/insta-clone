@@ -4,8 +4,7 @@ import { NavLink, useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { AxiosIntance } from "../../config/Axios.Intance";
 
-
-export default function MessagesSidebar() {
+export default function MessagesSidebar({ setShow }) {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const [search, setSearch] = useState("");
@@ -90,17 +89,20 @@ export default function MessagesSidebar() {
       {/* Messages List */}
       <div className="flex-1 overflow-x-auto overflow-scroll ">
         {followings.map((user, id) => (
-          <NavLink 
-          to={`/home/message/chat/${id}`}
+          <NavLink
+            to={`/home/message/chat/${id}`}
             key={id}
-            state={{user}}
+            state={{ user }}
+            onClick={() => setShow(true)}
             className={`flex items-center px-2 py-2 rounded-lg cursor-pointer transition
-            ${user.unread ?"bg-[##121212]" : "hover:bg-[#121212]"}`}
+            ${user.unread ? "bg-[##121212]" : "hover:bg-[#121212]"}`}
           >
             {/* image */}
             <div className="">
               <img
-                src= {user.dp|| "https://randomuser.me/api/portraits/men/10.jpg"}
+                src={
+                  user.dp || "https://randomuser.me/api/portraits/men/10.jpg"
+                }
                 alt="img"
                 className="w-16 h-16   rounded-full object-cover"
               />
@@ -124,63 +126,4 @@ export default function MessagesSidebar() {
       </div>
     </div>
   );
-} 
-
-
-/*
-
-
-// Dummy message data
-// const messages = [
-//   {
-//     name: "Ujjwal Rajput",
-//     avatar: "https://randomuser.me/api/portraits/men/10.jpg",
-//     message: "You sent an attachment.",
-//     time: "1h",
-//     unread: false,
-//   },
-// ];
-// const messages = [
-//   {
-//     avatar: "https://randomuser.me/api/portraits/men/10.jpg",
-//     name: "Ujjwal Rajput",
-//     message: "You sent an attachment.",
-//     time: "1h",
-//     unread: false,
-//   },
-// ];
-/* <NavLink
-            key={id}
-            className={`flex items-center px-2 py-2 rounded-lg cursor-pointer transition
-            ${user.unread ? "bg-[##121212]" : "hover:bg-[#121212]"}`}
-          >
-            {/* Avatar */
-/*
-            <div className="relative">
-              {user.avatar ? (
-                <img
-                  src="https://randomuser.me/api/portraits/men/10.jpg"
-                  alt="img"
-                  className="w-16 h-16  rounded-full object-cover"
-                />
-              ) : (
-                <div className="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center text-2xl">
-                  👤
-                </div>
-              )}
-              {/* Unread dot */
-/*
-              {user.unread && (
-                <span className="absolute top-0 right-0 w-3 h-3 bg-blue-500 rounded-full border border-black"></span>
-              )}
-            </div>
-          //   {/* Message body */
-          //   <div className="ml-3 flex flex-col gap-3 min-w-0">
-          //     <div className="text-sm font-medium text-[#F5F5F5] truncate">
-          //       {user.name}
-          //     </div>
-          //     <div className="text-xs  text-[#A8A8A8] truncate">
-          //       {user.message} <span className="text-md">{user.time}</span>{" "}
-          //     </div>
-          //   </div>
-          // </NavLink>  */
+}
