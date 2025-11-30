@@ -16,7 +16,7 @@ export default function MessagePage() {
   const messagesEndRef = useRef(null);
   const messageContainerRef = useRef(null);
 
-  const socket = useMemo(() => io("http://localhost:5000"), [chatUserData?._id]);
+  const socket = useMemo(() => io("https://insta-clone-d8ef.onrender.com"), [chatUserData?._id]);
 
   const chatUsers = {
     roomId: [user._id, chatUserData._id].sort().join("_"),

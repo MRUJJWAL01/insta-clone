@@ -14,7 +14,10 @@ export const fetchRegisterApi = (data) => async (dispatch) => {
 export const loginUserApi = (data) => async (dispatch) => {
   try {
     let res = await AxiosIntance.post("/auth/login", data);
+
     if (res) {
+      console.log("ujjwal ");
+      
       dispatch(addUser(res.data.user));
       
     }

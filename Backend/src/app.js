@@ -12,7 +12,10 @@ const path = require("path");
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://insta-clone-delta-five.vercel.app",
+    origin: [
+      "http://localhost:3000",
+      "https://insta-clone-delta-five.vercel.app",
+    ],
     credentials: true,
   })
 );
