@@ -16,8 +16,7 @@ export const loginUserApi = (data) => async (dispatch) => {
     let res = await AxiosIntance.post("/auth/login", data);
 
     if (res) {
-      console.log("ujjwal ");
-      
+      console.log("ujjwal"); 
       dispatch(addUser(res.data.user));
       
     }
