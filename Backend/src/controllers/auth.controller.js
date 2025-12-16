@@ -51,7 +51,12 @@ const registerController = async (req, res) => {
     }
 
     let token = newUser.JWTTokenGenration();
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true, // 🔥 REQUIRED on HTTPS
+      sameSite: "none", // 🔥 REQUIRED for cross-origin
+      maxAge: 7 * 24 * 60 * 60 * 1000, // optional
+    });
 
     return res.status(201).json({
       msg: "user created succefully",
@@ -72,20 +77,20 @@ const loginController = async (req, res) => {
     const { email, password, username, mobile } = req.body;
 
     const user = await userModel.findOne({
-    //  $or: [{ email }, { mobile }, { username }],
-    username
+      //  $or: [{ email }, { mobile }, { username }],
+      username,
     });
     console.log(username);
-    
-    if(!user){
+
+    if (!user) {
       return res.status(404).json({
-        msg:"user not found",
-      })
+        msg: "user not found",
+      });
     }
     const decryptPass = await user.comparePassword(password);
     // console.log(decryptPass);
     // console.log(password,"  " , user.password);
-    
+
     if (!decryptPass) {
       return res.status(401).json({
         msg: "invalid credential",
@@ -93,7 +98,12 @@ const loginController = async (req, res) => {
     }
     const token = user.JWTTokenGenration();
 
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true, // 🔥 REQUIRED on HTTPS
+      sameSite: "none", // 🔥 REQUIRED for cross-origin
+      maxAge: 7 * 24 * 60 * 60 * 1000, // optional
+    });
     // console.log("user logged in ");
 
     return res.status(200).json({

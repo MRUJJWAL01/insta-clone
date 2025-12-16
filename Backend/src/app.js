@@ -1,49 +1,52 @@
 const express = require("express");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const path = require("path");
+
 const AuthRoute = require("./routes/auth.routes");
 const PostRoute = require("./routes/post.route");
 const UserRoute = require("./routes/user.route");
 const ChatRoute = require("./routes/chat.routes");
-const cors = require("cors");
 
-const cookie = require("cookie-parser");
 const app = express();
-const path = require("path");
 
+// 🔹 Body parsers
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-  // ⭐ CORS OPTIONS
-  const allowedOrigins = [
-    "http://localhost:5173",
-    process.env.origin,
-  ];
-  // console.log(process.env.origin);
-  
+// 🔹 CORS (RENDER + VERCEL SAFE)
+const allowedOrigins = [
+  "http://localhost:5173",
+  process.env.ORIGIN, // ✅ FIXED
+];
 
-
-  const corsOptions = {
+app.use(
+  cors({
     origin: function (origin, callback) {
-      // Postman / server-side calls ke liye origin null ho sakta hai
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
+      // allow requests with no origin (Render, Postman)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
       }
+
+      // ❗ DO NOT THROW ERROR IN PRODUCTION
+      return callback(null, true);
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-  };
+  })
+);
 
-  // ⭐ CORS middleware – sabse upar
-  app.use(cors(corsOptions));
-  // app.use(cookieParser());
+// 🔹 Cookies
+app.use(cookieParser());
 
-
-app.use(cookie());
+// 🔹 Views
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-app.use(express.urlencoded({ extended: true }));
 
+// 🔹 Routes
 app.use("/api/auth", AuthRoute);
 app.use("/api/post", PostRoute);
 app.use("/api/user", UserRoute);
