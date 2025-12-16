@@ -24,13 +24,14 @@ cacheClient.on("error", (error) => {
 const io = socketIo(server, {
   cors: {
     origin: [
-      "http://localhost:5000",
-      "https://insta-clone-delta-five.vercel.app",
+      "http://localhost:5173",
+       process.env.origin,
     ],
     methods: ["GET", "POST"],
     credentials: true,
   },
 });
+
 
 const onlineUsers = [];
 

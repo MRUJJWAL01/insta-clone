@@ -6,6 +6,7 @@ import { addUser } from "./features/reducers/AuthSlice";
 
 const App = () => {
   const dispatch = useDispatch();
+  
 
   useEffect(() => {
     (async () => {
