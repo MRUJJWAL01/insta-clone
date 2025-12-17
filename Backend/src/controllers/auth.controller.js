@@ -80,7 +80,7 @@ const loginController = async (req, res) => {
       //  $or: [{ email }, { mobile }, { username }],
       username,
     });
-    console.log(username);
+    // console.log(username);
 
     if (!user) {
       return res.status(404).json({

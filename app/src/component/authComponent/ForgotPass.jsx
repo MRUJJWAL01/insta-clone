@@ -7,22 +7,22 @@ export default function ForgotPass() {
   const navigate = useNavigate();
   return (
     <>
-     <nav className="w-full bg-black border-b border-[#363636] flex items-center justify-between pl-[12.5vw] pr-[17vw] py-5">
+     <nav className="w-full fixed bg-black border-b border-[#363636] flex items-center justify-between lg:pl-[12.5vw] lg:pr-[17vw] ">
       {/* Instagram logo text */}
-      <div className="text-white cursor-pointer text-3xl font-title tracking-wide">
+      <div className="text-white sm:object-none cursor-pointer">
         <InstagramLogo />
       </div>
       {/* Right side buttons */}
       <div className="flex items-center gap-5">
-        <button onClick={()=>navigate("/")} className="bg-[#18208B] cursor-pointer  text-white font-semibold px-5 py-1.5 rounded-lg transition">
+        <button onClick={()=>navigate("/")} className="bg-[#18208B] cursor-pointer  text-white font-semibold lg:px-5 sm:text-sm sm:px-10 sm:py-2 sm:rounded-2xl lg:py-1.5 lg:rounded-lg transition">
           Log In
         </button>
-        <button onClick={()=>navigate("")} className="text-[#6C89F7] cursor-pointer hover:underline text-base font-medium">
+        <button onClick={()=>navigate("")} className="text-[#6C89F7] cursor-pointer hover:underline lg:text-base lg:font-medium">
           Sign Up
         </button>
       </div>
     </nav>
-      <div className="bg-black min-h-screen flex flex-col gap-10 items-center justify-between py-20">
+      <div className="bg-black min-h-screen flex flex-col gap-7 items-center justify-between py-21">
         <div className="w-[26%] border-1 border-[#363636] rounded-xs pt-6">
           <div className="bg-black   px-14 ">
             {/* Lock icon */}
@@ -77,7 +77,10 @@ export default function ForgotPass() {
             </a>
           </div>
         </div>
+        <span>
+
         <InstagramFooter />
+        </span>
       </div>
     </>
   );

@@ -17,7 +17,7 @@ export default function PostUI() {
 
   return (
     <div className=" flex flex-col">
-      <div className="w-full max-w-[30.5vw]">
+      <div className="w-full lg:max-w-[30.5vw]">
         {/* Post Header */}
         <div className="flex items-center  justify-between  py-2 ">
           <div className="flex items-center gap-3">

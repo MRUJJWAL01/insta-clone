@@ -120,7 +120,7 @@ const SideBar = () => {
 
         {/* Navigation Links */}
         <nav
-          className={`flex flex-col ${isCollapsed ? "pt-11" : "pt-9"} gap-2`}
+          className={`md:flex hidden flex-col ${isCollapsed ? "pt-11" : "pt-9"} gap-2`}
         >
           {NavLinks.map((link) => {
             const Icon = link.icon;
@@ -148,9 +148,42 @@ const SideBar = () => {
             );
           })}
         </nav>
+        {/*  */}
+    {/* navlinks for mobile view */}
+         <nav
+          className={`flex sm:hidden flex-row absolute bottom-0  gap-1`}
+        >
+          {NavLinks.map((link,index) => {
+            
+            if (index === 1 || index === 5) return null;
+            const Icon = link.icon;
+            const isActive = location.pathname === link.to;
+            return (
+              <div
+                key={link.label}
+                onClick={() => {
+                  if (link.to) navigate(link.to);
+                  handleNavClick(link.label);
+                }}
+                className="flex  cursor-pointer items-center gap-4 px-3 mx-3 mr-3 py-3 rounded-md hover:bg-[#1A1A1A] transition-all duration-300"
+              >
+                <div
+                  className={isActive ? "text-white font-bold" : "text-white"}
+                >
+                  <Icon isActive={isActive} className="h-6 w-6 font-bold" />
+                </div>
+                {!isCollapsed && (
+                  <span className={`text-base ${isActive ? "font-bold" : ""}`}>
+                    {link.label}
+                  </span>
+                )}
+              </div>
+            );
+          })}
+        </nav>
 
         {/* Bottom Links */}
-        <div className=" p-2 mt-[4vw]">
+        <div className="md:flex flex-col hidden p-2 mt-[4vw]">
           <button
             onClick={handleMoreClick}
             className="w-full cursor-pointer flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[#1A1A1A] transition-colors"
@@ -214,3 +247,5 @@ const SideBar = () => {
 };
 
 export default SideBar;
+
+

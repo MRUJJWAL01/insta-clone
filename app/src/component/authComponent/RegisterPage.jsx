@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { fetchRegisterApi } from "../../features/actions/AuthAction";
 import { useNavigate } from "react-router";
 import { InstagramLogo } from "../../assets/Icons";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+
 
 export default function RegisterPage({ setToggle }) {
   const navigate = useNavigate();
@@ -13,6 +15,8 @@ export default function RegisterPage({ setToggle }) {
     formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
+
 
   const onSubmit = (data) => {
     try {
@@ -21,8 +25,6 @@ export default function RegisterPage({ setToggle }) {
         // console.log("registered from regPage");
       }
       navigate("/login");
-
-      
     } catch (error) {
       console.log("error in register user", error);
     }
@@ -94,13 +96,13 @@ export default function RegisterPage({ setToggle }) {
                 )}
               </div>
 
-              <div>
+              <div className="relative">
                 <label htmlFor="password" className="sr-only">
                   Password
                 </label>
                 <input
                   id="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   className={`w-full px-3 py-2.5 bg-[#121212] border border-[#363636] rounded text-white placeholder-gray-500 text-xs focus:outline-none focus:border-gray-500 ${
                     errors.password ? "border-red-600" : ""
@@ -111,13 +113,20 @@ export default function RegisterPage({ setToggle }) {
                   })}
                   aria-invalid={errors.password ? "true" : "false"}
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                  tabIndex={-1}
+                >
+                  {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+                </button>
                 {errors.password && (
                   <p className="text-red-400 text-xs">
                     {errors.password.message}
                   </p>
                 )}
               </div>
-              
 
               <div>
                 <label htmlFor="fullName" className="sr-only">
