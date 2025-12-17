@@ -101,7 +101,7 @@ const loginController = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: true, // 🔥 REQUIRED on HTTPS
-      sameSite: "none", // 🔥 REQUIRED for cross-origin
+      sameSite:"none", // 🔥 REQUIRED for cross-origin
       maxAge: 7 * 24 * 60 * 60 * 1000, // optional
     });
     // console.log("user logged in ");
@@ -159,7 +159,7 @@ const forgotPasscontroller = async (req, res) => {
       expiresIn: "30m",
     });
 
-    let resetLink = `http://localhost:3000/api/auth/reset-password/${rawToken}`;
+    let resetLink = `http://localhost:5000/api/auth/reset-password/${rawToken}`;
 
     let resetTemplate = emailTemplate({ username: user.username, resetLink });
 
