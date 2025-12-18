@@ -27,7 +27,7 @@ const AppRouter = () => {
       element: <ProtectedRoute />,
       children: [
         {
-          path: "",
+          path: "/home",
           element: <HomeLayout />,
           children: [
             {

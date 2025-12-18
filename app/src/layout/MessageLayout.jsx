@@ -1,55 +1,9 @@
-import MessagesSidebar from "../component/messages/MessagesSidebar";
-import { Outlet } from "react-router";
-import MainSideBar from "../component/HomeComponent/SideBar";
-import { useState } from "react";
+import React from 'react'
+
 const MessageLayout = () => {
-  const [show, setShow] = useState(false);
-  console.log(show);
-
   return (
-    <div className="h-full  ml-20 flex  ">
-      <div className="h-full w-[25.5vw] ">
-        <MessagesSidebar setShow={setShow} />
-      </div>
-      <div className="w-[69.2vw]">
-        {show ? (
-          <Outlet />
-        ) : (
-          <>
-            <div className="flex flex-col items-center justify-center min-h-screen bg-black">
-              {/* Circular icon */}
-              <div className="flex items-center justify-center w-24 h-24 rounded-full border-2 border-white mb-5">
-                <svg
-                  aria-label=""
-                  className="x1lliihq x1n2onr6 xyb1xck"
-                  fill="currentColor"
-                  height="96"
-                  role="img"
-                  viewBox="0 0 96 96"
-                  width="96"
-                >
-                  <title></title>
-                  <path d="M48 0C21.532 0 0 21.533 0 48s21.532 48 48 48 48-21.532 48-48S74.468 0 48 0Zm0 94C22.636 94 2 73.364 2 48S22.636 2 48 2s46 20.636 46 46-20.636 46-46 46Zm12.227-53.284-7.257 5.507c-.49.37-1.166.375-1.661.005l-5.373-4.031a3.453 3.453 0 0 0-4.989.921l-6.756 10.718c-.653 1.027.615 2.189 1.582 1.453l7.257-5.507a1.382 1.382 0 0 1 1.661-.005l5.373 4.031a3.453 3.453 0 0 0 4.989-.92l6.756-10.719c.653-1.027-.615-2.189-1.582-1.453ZM48 25c-12.958 0-23 9.492-23 22.31 0 6.706 2.749 12.5 7.224 16.503.375.338.602.806.62 1.31l.125 4.091a1.845 1.845 0 0 0 2.582 1.629l4.563-2.013a1.844 1.844 0 0 1 1.227-.093c2.096.579 4.331.884 6.659.884 12.958 0 23-9.491 23-22.31S60.958 25 48 25Zm0 42.621c-2.114 0-4.175-.273-6.133-.813a3.834 3.834 0 0 0-2.56.192l-4.346 1.917-.118-3.867a3.833 3.833 0 0 0-1.286-2.727C29.33 58.54 27 53.209 27 47.31 27 35.73 36.028 27 48 27s21 8.73 21 20.31-9.028 20.31-21 20.31Z"></path>
-                </svg>{" "}
-              </div>
-              {/* Headline */}
-              <div className="text-white text-xl mb-1 font-normal">
-                Your messages
-              </div>
-              {/* Subheadline */}
-              <div className="text-[#A8A8A8] text-sm mb-5">
-                Send a message to start a chat.
-              </div>
-              {/* Call-to-action button */}
-              <button className=" bg-[#4150F7] cursor-pointer text-white font-medium py-1 px-4 rounded-lg text-base transition">
-                Send message
-              </button>
-            </div>
-          </>
-        )}
-      </div>
-    </div>
-  );
-};
+    <div>MessageLayout</div>
+  )
+}
 
-export default MessageLayout;
+export default MessageLayout
