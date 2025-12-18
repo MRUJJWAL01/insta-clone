@@ -7,7 +7,7 @@ const HomeLayout = () => {
   return (
     <div className="min-h-screen w-full bg-black text-white flex">
 {/* Sidebar */}
-      <aside className="fixed lg:static h-screen z-40"
+      <aside className="fixed   h-screen z-40"
       >
         <SideBar />
       </aside>
