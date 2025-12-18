@@ -1,29 +1,25 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
-import CreateModal from "./CreateModal";
-import DropdownMenu from "./MenuComponent";
-import InstagramSearchUI from "../search/InstagramSearchUI";
-import Notifications from "../notifications/Notifications";
+import CreateModal from "./app/src/component/HomeComponent/CreateModal";
+import DropdownMenu from "./app/src/component/HomeComponent/MenuComponent";
+import InstagramSearchUI from "./app/src/component/search/InstagramSearchUI";
+import Notifications from "./app/src/component/notifications/Notifications";
+import { AlsoFMeta, InstaMiniLogo, SettingsSvg } from "./app/src/assets/Icons";
 import {
   MetaMenuItems,
   MoreMenuItems,
-  navItems,
-  SideItem,
-} from "../../assets/SidebarData";
-import { AlsoFMeta, InstaMiniLogo, SettingsSvg } from "../../assets/Icons";
+  NavLinks,
+} from "./app/src/assets/SidebarData";
+
 const COLLAPSE_BREAKPOINT = 768; // px, change if you want a different breakpoint
 
-const Sidebar = () => {
-  const [messageCount, setMessageCount] = useState(1);
-  const [notificationCount, setNotificationCount] = useState(3);
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [activePanel, setActivePanel] = useState(null);
-
+const SideBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
 
   // Make sidebar responsive: auto-collapse under COLLAPSE_BREAKPOINT
@@ -73,19 +69,22 @@ const Sidebar = () => {
     }
     setActiveMenu(null);
   };
+
   const handleMoreClick = () => {
     setActiveMenu((prev) => (prev === "more" ? null : "more"));
   };
+
   const handleMetaClick = () => {
     setActiveMenu((prev) => (prev === "meta" ? null : "meta"));
   };
+
   return (
-    <div className="min-h-screen flex ">
-      {/* Desktop Sidebar (hidden on mobile) */}
-      <aside
-        className={`hidden lg:flex  flex-col relative left-0 top-0 bg-[#0C1014]   h-screen ${
+    <div className="flex h-screen">
+      {/* Sidebar */}
+      <div
+        className={`bg-black text-white transition-all duration-300 ${
           isCollapsed ? "w-18" : "w-60"
-        }   text-white flex-col border-r border-gray-800 z-50`}
+        } flex flex-col relative`}
       >
         {/* Logo */}
         <div className="pt-6 ml-6">
@@ -112,38 +111,66 @@ const Sidebar = () => {
                 </svg>
               </div>
             ) : (
-              <div className="pt-3 pl-1">
+              <div className="pt-3">
                 <InstaMiniLogo />
               </div>
             )}
-          </div>{" "}
+          </div>
         </div>
 
-        {/* Main Navigation */}
-        <nav className={`flex-1 ${isCollapsed ? "pt-11" : "pt-9"} gap-2`}>
-          {SideItem.map((link) => {
+        {/* Navigation Links */}
+        <nav
+          className={`md:flex hidden flex-col ${isCollapsed ? "pt-11" : "pt-9"} gap-2`}
+        >
+          {NavLinks.map((link) => {
             const Icon = link.icon;
             const isActive = location.pathname === link.to;
             return (
               <div
-                key={link.id}
+                key={link.label}
                 onClick={() => {
                   if (link.to) navigate(link.to);
                   handleNavClick(link.label);
                 }}
-                className={` flex cursor-pointer items-center gap-4 pl-3 active:scale-95 mx-3 mr-3 py-3 rounded-md hover:bg-[#25282C] transition-all duration-300 relative group ${
-                  activePanel === link.id ? "bg-gray-900" : ""
-                } ${isCollapsed ? "justify-center" : ""}`}
+                className="flex cursor-pointer items-center gap-4 px-3 mx-3 mr-3 py-3 rounded-md hover:bg-[#1A1A1A] transition-all duration-300"
               >
                 <div
                   className={isActive ? "text-white font-bold" : "text-white"}
                 >
                   <Icon isActive={isActive} className="h-6 w-6 font-bold" />
-                  {link.badge > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold">
-                      {link.badge}
-                    </span>
-                  )}
+                </div>
+                {!isCollapsed && (
+                  <span className={`text-base ${isActive ? "font-bold" : ""}`}>
+                    {link.label}
+                  </span>
+                )}
+              </div>
+            );
+          })}
+        </nav>
+        {/*  */}
+    {/* navlinks for mobile view */}
+         <nav
+          className={`flex sm:hidden flex-row absolute bottom-0  gap-1`}
+        >
+          {NavLinks.map((link,index) => {
+            
+            if (index === 1 || index === 5) return null;
+            const Icon = link.icon;
+            const isActive = location.pathname === link.to;
+            return (
+              <div
+                key={link.label}
+                onClick={() => {
+                  if (link.to) navigate(link.to);
+                  handleNavClick(link.label);
+                }}
+                className="flex  cursor-pointer items-center gap-4 px-3 mx-3 mr-3 py-3 rounded-md hover:bg-[#1A1A1A] transition-all duration-300"
+              >
+                <div
+                  className={isActive ? "text-white font-bold" : "text-white"}
+                >
+                  <Icon isActive={isActive} className="h-6 w-6 font-bold" />
                 </div>
                 {!isCollapsed && (
                   <span className={`text-base ${isActive ? "font-bold" : ""}`}>
@@ -155,11 +182,11 @@ const Sidebar = () => {
           })}
         </nav>
 
-        {/* Bottom Navigation */}
+        {/* Bottom Links */}
         <div className="md:flex flex-col hidden p-2 mt-[4vw]">
           <button
             onClick={handleMoreClick}
-            className="w-full cursor-pointer active:scale-95 flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[#1A1A1A] transition-colors"
+            className="w-full cursor-pointer flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[#1A1A1A] transition-colors"
           >
             <span>
               <SettingsSvg />
@@ -169,7 +196,7 @@ const Sidebar = () => {
 
           <button
             onClick={handleMetaClick}
-            className="w-full mt-2 cursor-pointer active:scale-95 flex items-center gap-4 px-4 rounded-md py-3 hover:bg-[#1A1A1A] transition-colors"
+            className="w-full mt-2 cursor-pointer flex items-center gap-4 px-4 rounded-md py-3 hover:bg-[#1A1A1A] transition-colors"
           >
             <span>
               <AlsoFMeta />
@@ -177,66 +204,8 @@ const Sidebar = () => {
             {!isCollapsed && <span className="text-base">Also from Meta</span>}
           </button>
         </div>
+      </div>
 
-        <DropdownMenu
-          isOpen={activeMenu === "more"}
-          onClose={() => setActiveMenu(null)}
-          items={MoreMenuItems}
-          position="bottom"
-        />
-
-        <DropdownMenu
-          isOpen={activeMenu === "meta"}
-          onClose={() => setActiveMenu(null)}
-          items={MetaMenuItems}
-          position="top"
-        />
-
-        <CreateModal
-          isOpen={activeMenu === "create"}
-          onClose={() => setActiveMenu(null)}
-        />
-      </aside>
-
-    
-
-      {/* Mobile Bottom Navigation (visible on mobile only) */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-black text-white border-t border-gray-800 z-50">
-        <div className="flex items-center justify-around py-2">
-          {navItems.main
-            .filter((link) => link.showInHorizontal)
-            .map((link) => {
-              const Icon = link.icon;
-            const isActive = location.pathname === link.to;
-              return (
-                <button
-                  key={link.id}
-                 onClick={() => {
-                  if (link.to) navigate(link.to);
-                  handleNavClick(link.label);
-                }}
-                  className="flex flex-col items-center justify-center p-2 relative"
-                >
-                  <div className="relative">
-                    <Icon size={24} />
-                    {link.badge > 0 && (
-                      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-semibold">
-                        {link.badge}
-                      </span>
-                    )}
-                  </div>
-                </button>
-              );
-            })}
-        </div>
-      </nav>
-      <InstagramSearchUI
-        isOpen={isSearchOpen}
-        onClose={() => {
-          setIsSearchOpen(false);
-          setIsCollapsed(window.innerWidth < COLLAPSE_BREAKPOINT);
-        }}
-      />
       <Notifications
         isOpen={isNotificationOpen}
         onClose={() => {
@@ -245,8 +214,38 @@ const Sidebar = () => {
           setIsCollapsed(window.innerWidth < COLLAPSE_BREAKPOINT);
         }}
       />
+
+      <InstagramSearchUI
+        isOpen={isSearchOpen}
+        onClose={() => {
+          setIsSearchOpen(false);
+          setIsCollapsed(window.innerWidth < COLLAPSE_BREAKPOINT);
+        }}
+      />
+
+      {/* Dropdowns and Modals */}
+      <DropdownMenu
+        isOpen={activeMenu === "more"}
+        onClose={() => setActiveMenu(null)}
+        items={MoreMenuItems}
+        position="bottom"
+      />
+
+      <DropdownMenu
+        isOpen={activeMenu === "meta"}
+        onClose={() => setActiveMenu(null)}
+        items={MetaMenuItems}
+        position="top"
+      />
+
+      <CreateModal
+        isOpen={activeMenu === "create"}
+        onClose={() => setActiveMenu(null)}
+      />
     </div>
   );
 };
 
-export default Sidebar;
+export default SideBar;
+
+

@@ -26,15 +26,15 @@ const StoriesUI = () => {
 
   return (
     <div className="bg-black py-6">
-      <div className="flex gap-4 overflow-x-scroll overflow-y-hidden no-scrollbar  mr-15 px-5 ">
+      <div className="flex lg:gap-4 gap-16 overflow-x-scroll overflow-y-hidden no-scrollbar ml-14 mt-52  lg:mr-15 lg:px-5 ">
         {stories.map((story) => (
           <div
             key={story.id}
             onClick={() => handleStoryClick(story.id)}
-            className="flex flex-col items-center gap-2 flex-shrink-0 cursor-pointer "
+            className="flex flex-col items-center gap-4 flex-shrink-0 cursor-pointer "
           >
             <div
-              className={`w-[86px] h-[86px] rounded-full p-[3px] ${
+              className={`sm:w[81vw] sm:h-[81vw] lg:w-40 lg:h-40  rounded-full p-[3px] ${
                 viewedStories.includes(story.id)
                   ? 'bg-[#3a3a3a]'
                   : 'bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888]'
@@ -49,7 +49,7 @@ const StoriesUI = () => {
               </div>
               
             </div>
-            <div className="text-white text-xs max-w-[86px] overflow-hidden text-ellipsis whitespace-nowrap text-center">
+            <div className="text-white lg:text-xs text-[3em]  overflow-hidden whitespace-nowrap text-center">
               {story.username}
             </div>
           </div>
@@ -57,8 +57,7 @@ const StoriesUI = () => {
         ))}
       </div>
 
-      <style jsx>{`
-        .scrollbar-hide::-webkit-scrollbar {
+      <style jsx>{`scrollbar-hide::-webkit-scrollbar {
           display: none;
         }
         .scrollbar-hide {

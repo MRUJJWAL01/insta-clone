@@ -51,6 +51,7 @@ const registerController = async (req, res) => {
     }
 
     let token = newUser.JWTTokenGenration();
+    
     res.cookie("token", token, {
       httpOnly: true,
       secure: true, // 🔥 REQUIRED on HTTPS

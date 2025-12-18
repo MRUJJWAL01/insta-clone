@@ -2,11 +2,12 @@ import {
   Bookmark,
   Moon,
   AlertCircle,
+  PlusSquare,User,Menu,Grid3x3 
 } from "lucide-react";
 import {
   ActivityIcon,
   AIStudioIcon,
-  exp,
+  explore,
   Heart,
   home,
   MetaAIIcon,
@@ -19,19 +20,100 @@ import {
   WhatsAppIcon,
   profile
 } from "./Icons";
+export const navItems = {
+  main: [
+    { id: "home", label: "Home", icon: home, showInHorizontal: true, to: "/" },
+    { id: "explore", label: "Explore", icon: explore, showInHorizontal: true },
+    {
+      id: "reels",
+      label: "Reels",
+      icon: reel,
+      showInHorizontal: true,
+      to: "/home/reels",
+    },
+    { id: "create", label: "Create", icon: PlusSquare, showInHorizontal: true },
+    {
+      id: "search",
+      label: "Search",
+      icon: SearchIcon,
+      showInHorizontal: false,
+      to: "/home/explore",
+    },
+    {
+      id: "messages",
+      label: "Messages",
+      icon: msg,
+      badge: 0,
+      showInHorizontal: true,
+      to: "/home/message",
+    },
+    {
+      id: "notifications",
+      label: "Notifications",
+      icon: Heart,
+      badge: 0,
+      showInHorizontal: false,
+    },
+    {
+      id: "profile",
+      label: "Profile",
+      icon: User,
+      showInHorizontal: true,
+      isProfile: true,
+      to: "/home/profile",
+    },
+  ],
+  bottom: [
+    { id: "more", label: "More", icon: Menu },
+    { id: "meta", label: "Also from Meta", icon: Grid3x3 },
+  ],
+};
+
+export const SideItem = [
+    { id: "home", label: "Home", icon: home, showInHorizontal: true, to: "/" },
+    {
+      id: "search",
+      label: "Search",
+      icon: SearchIcon,
+      showInHorizontal: false,
+     
+    },
+    { id: "explore", label: "Explore", icon: explore, showInHorizontal: true,  to: "/home/explore", },
+    {
+      id: "reels",
+      label: "Reels",
+      icon: reel,
+      showInHorizontal: true,
+      to: "/home/reels",
+    },
+    {
+      id: "messages",
+      label: "Messages",
+      icon: msg,
+      badge: 0,
+      showInHorizontal: true,
+      to: "/home/message",
+    },
+    { id: "create", label: "Create", icon: PlusSquare, showInHorizontal: true },
+    {
+      id: "notifications",
+      label: "Notifications",
+      icon: Heart,
+      badge: 0,
+      showInHorizontal: false,
+    },
+    {
+      id: "profile",
+      label: "Profile",
+      icon: User,
+      showInHorizontal: true,
+      isProfile: true,
+      to: "/home/profile",
+    },
+  ];
 
 
 
-export const NavLinks = [
-  { label: "Home", icon: home, to: "/home" },
-  { label: "Search", icon: SearchIcon },
-  { label: "Explore", icon: exp, to: "/home/explore" },
-  { label: "Reels", icon: reel, to: "/home/reels" },
-  { label: "Messages", icon: msg, to: "/home/message" },
-  { label: "Notifications", icon: Heart },
-  { label: "Create", icon: Plus },
-  { label: "Profile", icon: profile, to: "/home/profile" },
-];
 
 export const MoreMenuItems = [
   { label: "Settings", icon: SettingsSvg },

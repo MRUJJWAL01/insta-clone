@@ -1,249 +1,218 @@
-import React, { useState } from "react";
-import InstagramFooter from "../component/footer/InstagramFooter";
-import MessageButton from "../component/messages/MessageButton";
-import { useSelector } from "react-redux";
+import React, { useState } from 'react';
+import { Settings, Grid, Bookmark, User, PlusCircle } from 'lucide-react';
 
 export default function ProfilePage() {
-  const [activeTab, setActiveTab] = useState("posts");
+  const [activeTab, setActiveTab] = useState('posts');
+  
+  const profile = {
+    username: 'ujjwalxchouhan',
+    fullName: 'Ujjwal Rajput',
+    posts: 4,
+    followers: 510,
+    following: 330,
+    profileImage: '/api/placeholder/150/150',
+  };
 
   const stories = [
-    // { id: 1, label: 'old memories', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop' },
-    // { id: 2, label: 'enjoyment', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop' },
-    // { id: 3, label: 'Highlights', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop' },
-    // { id: 4, label: 'Highlights', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop' },
-    {
-      id: 5,
-      label: "brother",
-      image:
-        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop",
-    },
-    { id: 6, label: "New", isNew: true },
+    { id: 1, title: 'old memories', image: '/api/placeholder/80/80' },
+    { id: 2, title: 'enjoyment', image: '/api/placeholder/80/80' },
+    { id: 3, title: 'Highlights', image: '/api/placeholder/80/80' },
+    { id: 4, title: 'Highlights', image: '/api/placeholder/80/80' },
+    { id: 5, title: 'brother', image: '/api/placeholder/80/80' },
+    { id: 6, title: 'New', image: '/api/placeholder/80/80', isNew: true },
   ];
 
   const posts = [
-    // { id: 1, image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=400&fit=crop' },
-    // { id: 2, image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop' },
-    // { id: 3, image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop' }
+    { id: 1, image: '/api/placeholder/400/400' },
+    { id: 2, image: '/api/placeholder/400/400' },
+    { id: 3, image: '/api/placeholder/400/400' },
+    { id: 4, image: '/api/placeholder/400/400' },
   ];
-
-  const { user, isLoggedin } = useSelector((state) => state.auth);
-  // console.log(user);
 
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Profile Header */}
-      <div className="max-w-4xl mx-auto pl-40 pb-8">
-        <div className=" flex items-start  pt-16  gap-25 mb-12">
-          {/* Profile Picture */}
-          <div className="">
-            <img
-              src={user.dp}
-              alt="Profile"
-              className="w-[150px] h-[150px] cursor-pointer rounded-full object-cover"
-            />
-            {/* <button className=" top-16 left-134 bg-[#363636] text-gray-400 rounded-full px-3 py-4 text-xs ">
-              Note..
-            </button> */}
+      <div className="border-b border-gray-800">
+        {/* Top Bar - Mobile */}
+        <div className="md:hidden flex items-center justify-between px-4 py-3">
+          <Settings className="w-6 h-6" />
+          <div className="flex items-center gap-2">
+            <span className="font-semibold">{profile.username}</span>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+          <div className="relative">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            <span className="absolute -top-1 -right-1 bg-red-500 text-xs rounded-full w-5 h-5 flex items-center justify-center">9+</span>
+          </div>
+        </div>
+
+        {/* Profile Info Container */}
+        <div className="max-w-4xl mx-auto px-4 py-6">
+          {/* Desktop Header */}
+          <div className="hidden md:flex items-center justify-between mb-8">
+            <h1 className="text-xl font-normal">{profile.username}</h1>
+            <div className="flex items-center gap-4">
+              <button className="px-6 py-1.5 bg-gray-800 rounded-lg text-sm font-semibold hover:bg-gray-700">
+                Edit profile
+              </button>
+              <button className="px-6 py-1.5 bg-gray-800 rounded-lg text-sm font-semibold hover:bg-gray-700">
+                View archive
+              </button>
+              <Settings className="w-6 h-6 cursor-pointer" />
+            </div>
           </div>
 
           {/* Profile Info */}
-          <div className="flex-1">
-            <div className="flex items-center   mb-6">
-              <h1 className="text-xl font-normal cursor-pointer mr-4">
-                {user?.username}
-              </h1>
-              <button className="px-4 py-1.5 bg-[#25292e] cursor-pointer mr-2 text-white text-sm font-semibold rounded-lg hover:bg-[#363C44] transition-colors">
-                Edit profile
-              </button>
-              <button className="px-4 py-1.5 bg-[#25292e] cursor-pointer mr-2  text-white text-sm font-semibold rounded-lg hover:bg-[#363c44] transition-colors">
-                View archive
-              </button>
-              <button className="  cursor-pointer ">
-                <svg
-                  aria-label="Options"
-                  className="x1lliihq x1n2onr6 x5n08af"
-                  fill="currentColor"
-                  height="24"
-                  role="img"
-                  viewBox="0 0 24 24"
-                  width="24"
-                >
-                  <title>Options</title>
-                  <circle
-                    cx="12"
-                    cy="12"
-                    fill="none"
-                    r="8.635"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                  ></circle>
-                  <path
-                    d="M14.232 3.656a1.269 1.269 0 0 1-.796-.66L12.93 2h-1.86l-.505.996a1.269 1.269 0 0 1-.796.66m-.001 16.688a1.269 1.269 0 0 1 .796.66l.505.996h1.862l.505-.996a1.269 1.269 0 0 1 .796-.66M3.656 9.768a1.269 1.269 0 0 1-.66.796L2 11.07v1.862l.996.505a1.269 1.269 0 0 1 .66.796m16.688-.001a1.269 1.269 0 0 1 .66-.796L22 12.93v-1.86l-.996-.505a1.269 1.269 0 0 1-.66-.796M7.678 4.522a1.269 1.269 0 0 1-1.03.096l-1.06-.348L4.27 5.587l.348 1.062a1.269 1.269 0 0 1-.096 1.03m11.8 11.799a1.269 1.269 0 0 1 1.03-.096l1.06.348 1.318-1.317-.348-1.062a1.269 1.269 0 0 1 .096-1.03m-14.956.001a1.269 1.269 0 0 1 .096 1.03l-.348 1.06 1.317 1.318 1.062-.348a1.269 1.269 0 0 1 1.03.096m11.799-11.8a1.269 1.269 0 0 1-.096-1.03l.348-1.06-1.317-1.318-1.062.348a1.269 1.269 0 0 1-1.03-.096"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                  ></path>
-                </svg>
-              </button>
-            </div>
-
-            {/* Stats */}
-            <div className="flex gap-10 mb-6">
-              <div className="text-sm">
-                <span className="font-semibold">0</span> <span className="text-[#a8a8a8]">posts</span>
-              </div>
-              <div className="text-sm cursor-pointer hover:text-gray-300">
-                <span className="font-semibold">{user?.followers.length}</span>{" "}
-                <span className="text-[#a8a8a8]">followers</span>
-              </div>
-              <div className="text-sm cursor-pointer hover:text-gray-300">
-                <span className="font-semibold">{user?.following.length}</span>{" "}
-                <span className="text-[#a8a8a8]">following</span>
-              </div>
-            </div>
-
-            {/* Bio */}
-            <div className="text-lg">
-              <p className="font-semibold mb-1">{user?.fullName}</p>
-              <div className="flex items-center gap-2 text-gray-400">
-                <div className="bg-[#363636] rounded-full px-2 py-0.5 text-xs flex items-center gap-1">
-                  <svg
-                    className="w-3 h-3"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
-                    <circle cx="12" cy="12" r="3" />
-                  </svg>
-                  ujjwalxchouhan
+          <div className="flex items-start gap-6 md:gap-12 mb-6">
+            {/* Profile Picture */}
+            <div className="flex-shrink-0">
+              <div className="relative">
+                <div className="w-20 h-20 md:w-36 md:h-36 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 p-0.5">
+                  <div className="w-full h-full rounded-full bg-black p-1">
+                    <img 
+                      src={profile.profileImage} 
+                      alt={profile.fullName}
+                      className="w-full h-full rounded-full object-cover"
+                    />
+                  </div>
                 </div>
               </div>
-              <a
-                href="#"
-                className="text-blue-400 hover:text-blue-300 text-sm mt-2 inline-block"
-              >
-                {/* ujjwals-portfolio.vercel.app */}
-              </a>
+            </div>
+
+            {/* Stats and Info */}
+            <div className="flex-1 min-w-0">
+              {/* Mobile username */}
+              <div className="md:hidden mb-4">
+                <h2 className="font-semibold text-sm">{profile.fullName}</h2>
+              </div>
+
+              {/* Stats - Desktop */}
+              <div className="hidden md:flex items-center gap-10 mb-5">
+                <div className="text-center">
+                  <span className="font-semibold">{profile.posts}</span>
+                  <span className="text-gray-400 ml-1">posts</span>
+                </div>
+                <button className="text-center hover:text-gray-300">
+                  <span className="font-semibold">{profile.followers}</span>
+                  <span className="text-gray-400 ml-1">followers</span>
+                </button>
+                <button className="text-center hover:text-gray-300">
+                  <span className="font-semibold">{profile.following}</span>
+                  <span className="text-gray-400 ml-1">following</span>
+                </button>
+              </div>
+
+              {/* Full name - Desktop */}
+              <div className="hidden md:block">
+                <h2 className="font-semibold">{profile.fullName}</h2>
+              </div>
+
+              {/* Mobile Buttons */}
+              <div className="md:hidden flex gap-2">
+                <button className="flex-1 px-4 py-1.5 bg-gray-800 rounded-lg text-sm font-semibold">
+                  Edit profile
+                </button>
+                <button className="flex-1 px-4 py-1.5 bg-gray-800 rounded-lg text-sm font-semibold">
+                  View archive
+                </button>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Stories/Highlights */}
-        <div className="flex gap-6 mb-8 overflow-x-auto pb-4 scrollbar-hide">
-          {stories.map((story) => (
-            <div
-              key={story.id}
-              className="flex flex-col items-center gap-2 flex-shrink-0"
-            >
-              {story.isNew ? (
-                <div className="w-20 h-20 rounded-full border-2 border-gray-700 flex items-center justify-center bg-black cursor-pointer hover:bg-[#1A1A1A] transition-colors">
-                  <svg
-                    className="w-8 h-8 text-gray-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <line x1="12" y1="5" x2="12" y2="19" />
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                  </svg>
-                </div>
-              ) : (
-                <img
-                  src={story.image}
-                  alt={story.label}
-                  className="w-20 h-20 rounded-full object-cover border-2 border-gray-700 cursor-pointer hover:scale-105 transition-transform"
-                />
-              )}
-              <span className="text-xs text-white text-center max-w-[80px] truncate">
-                {story.label}
-              </span>
+          {/* Stats - Mobile */}
+          <div className="md:hidden flex justify-around py-3 border-t border-b border-gray-800">
+            <div className="text-center">
+              <div className="font-semibold">{profile.posts}</div>
+              <div className="text-gray-400 text-xs">posts</div>
             </div>
-          ))}
-        </div>
-
-        {/* Tabs */}
-        <div className="border-t border-gray-800">
-          <div className="flex justify-center gap-16">
-            <button
-              onClick={() => setActiveTab("posts")}
-              className={`flex items-center gap-2 py-3 text-xs font-semibold tracking-wider border-t-2 -mt-px transition-colors ${
-                activeTab === "posts"
-                  ? "border-white text-white"
-                  : "border-transparent text-gray-500 hover:text-gray-300"
-              }`}
-            >
-              <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
-                <rect x="3" y="3" width="7" height="7" />
-                <rect x="13" y="3" width="7" height="7" />
-                <rect x="3" y="13" width="7" height="7" />
-                <rect x="13" y="13" width="7" height="7" />
-              </svg>
-              POSTS
+            <button className="text-center">
+              <div className="font-semibold">{profile.followers}</div>
+              <div className="text-gray-400 text-xs">followers</div>
             </button>
-            <button
-              onClick={() => setActiveTab("saved")}
-              className={`flex items-center gap-2 py-3 text-xs font-semibold tracking-wider border-t-2 -mt-px transition-colors ${
-                activeTab === "saved"
-                  ? "border-white text-white"
-                  : "border-transparent text-gray-500 hover:text-gray-300"
-              }`}
-            >
-              <svg
-                className="w-3 h-3"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z" />
-              </svg>
-              SAVED
-            </button>
-            <button
-              onClick={() => setActiveTab("tagged")}
-              className={`flex items-center gap-2 py-3 text-xs font-semibold tracking-wider border-t-2 -mt-px transition-colors ${
-                activeTab === "tagged"
-                  ? "border-white text-white"
-                  : "border-transparent text-gray-500 hover:text-gray-300"
-              }`}
-            >
-              <svg
-                className="w-3 h-3"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <rect x="3" y="3" width="18" height="18" rx="2" />
-                <circle cx="8.5" cy="8.5" r="1.5" />
-                <path d="M21 15l-5-5L5 21" />
-              </svg>
-              TAGGED
+            <button className="text-center">
+              <div className="font-semibold">{profile.following}</div>
+              <div className="text-gray-400 text-xs">following</div>
             </button>
           </div>
         </div>
-
-        {/* Posts Grid */}
-        <div className="grid grid-cols-3 gap-1 mt-1">
-          {posts.map((post) => (
-            <div
-              key={post.id}
-              className="relative aspect-square cursor-pointer group overflow-hidden"
-            >
-              <img
-                src={post.image}
-                alt={`Post ${post.id}`}
-                className="w-full h-full object-cover group-hover:brightness-75 transition-all"
-              />
-            </div>
-          ))}
-        </div>
-        <InstagramFooter />
       </div>
 
-      {/* Messages Button */}
-      <div></div>
+      {/* Stories/Highlights */}
+      <div className="border-b border-gray-800 px-4 py-4 overflow-x-auto">
+        <div className="flex gap-4 md:gap-8 max-w-4xl mx-auto">
+          {stories.map((story) => (
+            <div key={story.id} className="flex-shrink-0 text-center">
+              <div className={`w-16 h-16 md:w-20 md:h-20 rounded-full ${story.isNew ? 'bg-gray-800 border-2 border-gray-700' : 'bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600'} p-0.5 mb-1 cursor-pointer`}>
+                <div className="w-full h-full rounded-full bg-black p-1 flex items-center justify-center">
+                  {story.isNew ? (
+                    <PlusCircle className="w-8 h-8 text-gray-400" />
+                  ) : (
+                    <img 
+                      src={story.image} 
+                      alt={story.title}
+                      className="w-full h-full rounded-full object-cover"
+                    />
+                  )}
+                </div>
+              </div>
+              <p className="text-xs text-gray-300 max-w-[64px] md:max-w-[80px] truncate">{story.title}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <div className="border-b border-gray-800">
+        <div className="max-w-4xl mx-auto flex justify-center">
+          <button
+            onClick={() => setActiveTab('posts')}
+            className={`flex items-center gap-2 px-8 py-3 border-t-2 transition-colors ${
+              activeTab === 'posts' ? 'border-white' : 'border-transparent text-gray-400'
+            }`}
+          >
+            <Grid className="w-5 h-5" />
+            <span className="hidden md:inline text-xs font-semibold uppercase tracking-wider">Posts</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('saved')}
+            className={`flex items-center gap-2 px-8 py-3 border-t-2 transition-colors ${
+              activeTab === 'saved' ? 'border-white' : 'border-transparent text-gray-400'
+            }`}
+          >
+            <Bookmark className="w-5 h-5" />
+            <span className="hidden md:inline text-xs font-semibold uppercase tracking-wider">Saved</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('tagged')}
+            className={`flex items-center gap-2 px-8 py-3 border-t-2 transition-colors ${
+              activeTab === 'tagged' ? 'border-white' : 'border-transparent text-gray-400'
+            }`}
+          >
+            <User className="w-5 h-5" />
+            <span className="hidden md:inline text-xs font-semibold uppercase tracking-wider">Tagged</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Posts Grid */}
+      <div className="max-w-4xl mx-auto px-0 md:px-4 py-0 md:py-4">
+        <div className="grid grid-cols-3 gap-0.5 md:gap-4">
+          {posts.map((post) => (
+            <div key={post.id} className="aspect-square cursor-pointer group relative overflow-hidden">
+              <img 
+                src={post.image} 
+                alt={`Post ${post.id}`}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all"></div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

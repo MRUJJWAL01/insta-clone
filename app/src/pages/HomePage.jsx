@@ -3,7 +3,7 @@ import { getAllUsers } from '../apis/UserApis'
 import FollowCard from '../component/HomeComponent/RigthSideBar'
 import StoriesUI from '../component/HomeComponent/StoriesUI'
 import RigthSideBar from '../component/HomeComponent/RigthSideBar'
-import PostUI from '../component/HomeComponent/PostUi'
+import PostContainer from '../component/HomeComponent/PostContainer'
 
 const HomePage = () => {
   const [allUsers, setAllUsers] = useState(null)  
@@ -21,11 +21,11 @@ const HomePage = () => {
       fetchAllUsers();
     },[])
   return (
-    <div className="text-white flex ml-[24.5vw]  ">
-      <div className="w-[60%] h-[100%]"> 
+    <div className="text-white flex lg:ml-[24.5vw]  ">
+      <div className="lg:w-[60%] sm:w-[50%] h-[100%]"> 
         <StoriesUI />
-        <div className='bg-black  ml-20  '>
-          <PostUI />
+        <div className='bg-black    '>
+          <PostContainer />
         </div>
       </div>
 

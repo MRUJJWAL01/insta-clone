@@ -3,6 +3,7 @@ import AppRouter from "./router/AppRouter";
 import { useDispatch } from "react-redux";
 import { AxiosIntance } from "./config/Axios.Intance";
 import { addUser } from "./features/reducers/AuthSlice";
+import Loading from "./layout/Loading";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -14,13 +15,15 @@ const App = () => {
         let res = await AxiosIntance.get("/auth/me");
         if (res) {
           // console.log(res);
-          dispatch(addUser(res.data.user));
+         
         }
+        dispatch(addUser(res.data.user));
       } catch (error) {
         console.log(error);
       }
     })();
   }, [dispatch]);
+  
   return (
     <div className="min-h-screen bg-black ">
       <AppRouter />
