@@ -2,6 +2,7 @@ import AppRouter from "./router/AppRouter";
 import { useDispatch } from "react-redux";
 import { AxiosIntance } from "./config/Axios.Intance";
 import { addUser } from "./features/reducers/AuthSlice";
+import { useEffect } from "react";
 
 const App = () => {
   const dispatch = useDispatch();
