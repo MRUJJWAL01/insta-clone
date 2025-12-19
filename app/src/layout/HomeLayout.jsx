@@ -1,12 +1,11 @@
 import { Outlet } from "react-router";
 import Sidebar from "../component/HomeComponent/Sidebar";
-import MessageButton from "../component/messages/MessageButton";
+
 
 const HomeLayout = () => {
 
   return (
     <div className="min-h-screen w-full bg-black text-white flex">
-{/* Sidebar */}
       <aside className="fixed   h-screen z-40"
       >
         <Sidebar />
