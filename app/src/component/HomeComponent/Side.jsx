@@ -13,7 +13,7 @@ import {
 import { AlsoFMeta, InstaMiniLogo, SettingsSvg } from "../../assets/Icons";
 const COLLAPSE_BREAKPOINT = 768; // px, change if you want a different breakpoint
 
-const Sidebar = () => {
+const Side = () => {
   const [messageCount, setMessageCount] = useState(1);
   const [notificationCount, setNotificationCount] = useState(3);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -251,4 +251,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default Side;
