@@ -54,7 +54,7 @@ import { useState } from "react";
         <img
           src={post.imageUrl}
           alt="Post content"
-          className="w-full aspect-square  object-cover"
+          className="w-full aspect-square rounded-2xl object-cover"
         />
         {showHeart && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">

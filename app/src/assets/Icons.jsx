@@ -90,16 +90,7 @@ export const profile = () => {
 };
 
 export const PostIcon = () => (
-  <svg
-    className="w-6 h-6"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <rect x="3" y="3" width="18" height="18" rx="2" strokeWidth="2" />
-    <line x1="9" y1="9" x2="15" y2="9" strokeWidth="2" />
-    <line x1="9" y1="15" x2="15" y2="15" strokeWidth="2" />
-  </svg>
+ <svg aria-label="New post" class="x1lliihq x1n2onr6 x5n08af" fill="currentColor" height="24" role="img" viewBox="0 0 24 24" width="24"><title>New post</title><path d="M21 11h-8V3a1 1 0 1 0-2 0v8H3a1 1 0 1 0 0 2h8v8a1 1 0 1 0 2 0v-8h8a1 1 0 1 0 0-2Z"></path></svg>
 );
 export const AlsoFMeta = () => (
   <svg

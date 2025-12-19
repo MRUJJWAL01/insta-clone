@@ -120,7 +120,7 @@ const Sidebar = () => {
         </div>
 
         {/* Main Navigation */}
-        <nav className={`flex-1 ${isCollapsed ? "pt-11" : "pt-9"} gap-2`}>
+        <nav className={`flex flex-col ${isCollapsed ? "pt-11" : "pt-9"} gap-2`}>
           {SideItem.map((link) => {
             const Icon = link.icon;
             const isActive = location.pathname === link.to;
@@ -146,6 +146,7 @@ const Sidebar = () => {
                   )}
                 </div>
                 {!isCollapsed && (
+              
                   <span className={`text-base ${isActive ? "font-bold" : ""}`}>
                     {link.label}
                   </span>
@@ -157,6 +158,7 @@ const Sidebar = () => {
 
         {/* Bottom Navigation */}
         <div className="md:flex flex-col hidden p-2 mt-[4vw]">
+          {/* <h1>hello</h1> */}
           <button
             onClick={handleMoreClick}
             className="w-full cursor-pointer active:scale-95 flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[#1A1A1A] transition-colors"

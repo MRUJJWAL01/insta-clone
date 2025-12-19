@@ -1,98 +1,6 @@
 import React, { useState, useRef } from "react";
 import FeedPost from "../component/HomeComponent/FeedPost"
-// StoriesBar Component
-const StoriesBar = () => {
-  const scrollRef = useRef(null);
-  const [showLeftArrow, setShowLeftArrow] = useState(false);
-  const [showRightArrow, setShowRightArrow] = useState(true);
-
-  const stories = [
-    { id: 1, username: "iittechnoc...", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=iittech", hasStory: true },
-    { id: 2, username: "fitparul", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=fitparul", hasStory: true },
-    { id: 3, username: "swatirojha", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=swatirojha", hasStory: true },
-    { id: 4, username: "abhisheksi...", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=abhishek", hasStory: true },
-    { id: 5, username: "ezsnippet", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=ezsnippet", hasStory: true },
-    { id: 6, username: "rajput_pus...", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=rajput", hasStory: true },
-    { id: 7, username: "codemaster", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=codemaster", hasStory: true },
-    { id: 8, username: "devlife", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=devlife", hasStory: true },
-  ];
-
-  const scroll = (direction) => {
-    if (scrollRef.current) {
-      const scrollAmount = 300;
-      scrollRef.current.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth"
-      });
-    }
-  };
-
-  const handleScroll = () => {
-    if (scrollRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-      setShowLeftArrow(scrollLeft > 0);
-      setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 10);
-    }
-  };
-
-  return (
-    <div className="relative pl-6 lg:ml-3  py-2 overflow-hidden">
-      {showLeftArrow && (
-        <button
-          onClick={() => scroll("left")}
-          className="absolute left-7 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
-        >
-          <svg className="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-      )}
-
-      <div
-        ref={scrollRef}
-        onScroll={handleScroll}
-        className="flex gap-5 overflow-x-auto scrollbar-hide scroll-smooth"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-      >
-        {stories.map((story) => (
-          <div
-            key={story.id}
-            className="flex flex-col items-center gap-1 flex-shrink-0 cursor-pointer group"
-          >
-            <div className="relative">
-              <div className="w-22 h-22 rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 p-[2px]  transition-transform">
-                <div className="w-full h-full rounded-full bg-zinc-900 p-[3px]">
-                  <img
-                    src={story.avatar}
-                    alt={story.username}
-                    className="w-full h-full rounded-full object-cover"
-                  />
-                </div>
-              </div>
-            </div>
-            <span className="text-xs text-zinc-300 max-w-[70px] truncate">
-              {story.username}
-            </span>
-          </div>
-        ))}
-      </div>
-
-      {showRightArrow && (
-        <button
-          onClick={() => scroll("right")}
-          className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
-        >
-          <svg className="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-      )}
-    </div>
-  );
-};
-
-// FeedPost Component
-
+import StoriesBar from "../component/HomeComponent/StoriesBar";
 
 // UserProfile Component
 const UserProfile = () => {
@@ -186,80 +94,7 @@ const Header = () => {
   );
 };
 
-// BottomNavigation Component
-const BottomNavigation = () => {
-  const navItems = [
-    {
-      id: "home",
-      icon: (
-        <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
-          <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
-        </svg>
-      ),
-      active: true
-    },
-    {
-      id: "search",
-      icon: (
-        <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-      ),
-      active: false
-    },
-    {
-      id: "create",
-      icon: (
-        <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-        </svg>
-      ),
-      active: false
-    },
-    {
-      id: "reels",
-      icon: (
-        <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-        </svg>
-      ),
-      active: false
-    },
-    {
-      id: "profile",
-      icon: (
-        <div className="w-7 h-7 rounded-full bg-zinc-700 flex items-center justify-center overflow-hidden">
-          <img
-            src="https://api.dicebear.com/7.x/avataaars/svg?seed=user"
-            alt="Profile"
-            className="w-full h-full object-cover"
-          />
-        </div>
-      ),
-      active: false
-    }
-  ];
 
-  return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-black border-t border-zinc-800 z-50">
-      <div className="flex items-center justify-around px-2 py-1 max-w-2xl mx-auto">
-        {navItems.map((item) => (
-          <button
-            key={item.id}
-            className={`
-              flex flex-col items-center justify-center p-2 rounded-lg
-              transition-all duration-200
-              ${item.active ? "text-white" : "text-zinc-400 hover:text-white"}
-            `}
-          >
-            {item.icon}
-          </button>
-        ))}
-      </div>
-    </nav>
-  );
-};
 
 // Main HomePage Component
 export default function HomePage() {
@@ -338,7 +173,7 @@ export default function HomePage() {
               <StoriesBar />
             </div>
 
-            <div className="space-y-6">
+            <div className=" lg:px-20">
               {posts.map((post) => (
                 <FeedPost key={post.id} post={post} />
               ))}
@@ -349,7 +184,6 @@ export default function HomePage() {
             </div>
           </div>  
           {/* right sidebar */}
-
 
           <div className="hidden lg:block  lg:ml-12 w-[320px] flex-shrink-0">
             <div className=" w-[320px] space-y-6">
@@ -378,7 +212,7 @@ export default function HomePage() {
         </div>
       </div>
 
-
+{/* 
       <style>{`
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
@@ -397,7 +231,7 @@ export default function HomePage() {
             opacity: 0;
           }
         }
-      `}</style>
+      `}</style> */}
     </div>
   );
 }

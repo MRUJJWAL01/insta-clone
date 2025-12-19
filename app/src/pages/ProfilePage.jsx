@@ -42,7 +42,7 @@ export default function ProfilePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-[#0C1014] text-white">
       {/* Profile Header */}
       <div className="border-b lg:ml-40 lg:mt-10 mg:mr-20 border-gray-800">
         {/* Top Bar - Mobile */}

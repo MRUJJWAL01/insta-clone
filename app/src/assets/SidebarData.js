@@ -116,7 +116,7 @@ export const SideItem = [
     badge: 0,
     showInHorizontal: false,
   },
-  { id: "create", label: "Create", icon: PlusSquare, showInHorizontal: true },
+  { id: "create", label: "Create", icon: Plus, showInHorizontal: true },
   {
     id: "profile",
     label: "Profile",

@@ -19,7 +19,7 @@ const InstagramSearchUI = ({ isOpen, onClose }) => {
     <div
       className={`${
         isOpen ? "w-107" : "w-0"
-      } bg-black rounded-2xl border-r border-[#363636] overflow-hidden transition-all duration-300`}
+      } bg-[#0C1014] rounded-2xl border-r border-[#363636] overflow-hidden transition-all duration-300`}
     >
       <div className="">
         <div className="border-b border-[#222222] ">

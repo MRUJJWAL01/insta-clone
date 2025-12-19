@@ -37,7 +37,7 @@ const MessageLayout = () => {
   };
 
   return (
-    <div className="flex lg:ml-22 h-screen bg-black text-white">
+    <div className="flex lg:ml-22 h-screen bg-[#0C1014] text-white">
       {/* Left Sidebar - Chat List */}
       <div className={`${isMobile && selectedChat ? 'hidden' : 'flex'} ${isMobile ? 'w-full' : 'w-96'} flex-col border-r border-gray-800`}>
         {/* Header */}

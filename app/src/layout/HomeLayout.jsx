@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-import SideBar from "../component/HomeComponent/SideBar";
+import SideBar from "../component/HomeComponent/Sidebar";
 import MessageButton from "../component/messages/MessageButton";
 
 const HomeLayout = () => {
@@ -13,7 +13,7 @@ const HomeLayout = () => {
       </aside>
 
       {/* Main content */}
-      <div className="flex-1 w-full lg:ml-0">
+      <div className="flex-1 bg-[#0C1014] w-full lg:ml-0">
         <Outlet />
       </div>
     </div>

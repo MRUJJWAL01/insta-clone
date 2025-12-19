@@ -130,10 +130,10 @@ export default function Notifications({ isOpen, onClose }) {
   return (
     <div    className={`${
         isOpen ? "w-106" : "w-0"
-      } bg-black rounded-2xl h-screen overflow-y-auto  overflow-hidden transition-all duration-300`} 
+      } bg-[#0C1014] rounded-2xl h-screen overflow-y-auto  overflow-hidden transition-all duration-300`} 
      >
       {/* Header */}
-      <div className="sticky top-0 bg-black border-b border-gray-800 px-4 py-4 z-10">
+      <div className="sticky top-0 bg-[#0C1014]  px-4 py-4 z-10">
         <h1 className="text-2xl font-semibold">Notifications</h1>
       </div>
 
