@@ -163,17 +163,17 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen lg:ml-60 bg-[#0C1014] text-white">
+    <div className="min-h-screen lg:ml-62 bg-[#0C1014] text-white">
       <Header />
 
       <div className="max-w-6xl mx-auto px-4 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-8 pt-0 lg:pt-6 pb-20 lg:pb-6">
-          <div className="flex-1 max-w-[670px] mx-auto lg:mx-0 w-full">
-            <div className="mb-6">
+          <div className="flex-1 max-w-167.5 mx-auto lg:mx-0 w-full">
+            <div className="mb-2">
               <StoriesBar />
             </div>
 
-            <div className=" lg:px-20">
+            <div className=" lg:pl-19 lg:pr-20 lg:ml-10">
               {posts.map((post) => (
                 <FeedPost key={post.id} post={post} />
               ))}
@@ -185,7 +185,7 @@ export default function HomePage() {
           </div>  
           {/* right sidebar */}
 
-          <div className="hidden lg:block  lg:ml-12 w-[320px] flex-shrink-0">
+          <div className="hidden lg:block  lg:ml-12 w-[320px] shrink-0">
             <div className=" w-[320px] space-y-6">
               <UserProfile />
               <Suggestions suggestions={suggestions} />
@@ -212,26 +212,6 @@ export default function HomePage() {
         </div>
       </div>
 
-{/* 
-      <style>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        @keyframes heartPop {
-          0% {
-            transform: scale(0);
-            opacity: 0;
-          }
-          50% {
-            transform: scale(1.2);
-            opacity: 1;
-          }
-          100% {
-            transform: scale(1);
-            opacity: 0;
-          }
-        }
-      `}</style> */}
     </div>
   );
 }

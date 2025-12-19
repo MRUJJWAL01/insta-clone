@@ -141,10 +141,10 @@ export default function MessagePage() {
         onScroll={() => {
           if (isUserAtBottom()) setShowNewMsgAlert(false);
         }}
-        className="flex-1 overflow-y-auto px-4 py-4 scroll-smooth"
+        className="flex-1 overflow-y-auto  px-4 py-4 scroll-smooth"
       >
         {allMessage.length > 0 ? (
-          <div className="flex flex-col space-y-3">
+          <div className="flex flex-col  space-y-3">
             {allMessage.map((msg, index) => {
               const isCurrentUser = isMessageFromCurrentUser(msg);
               return (
@@ -157,7 +157,7 @@ export default function MessagePage() {
                       isCurrentUser ? "bg-blue-600 text-white" : "bg-gray-800 text-white"
                     } ${msg.isNew ? "animate-pulse" : ""}`}
                   >
-                    <p className="text-sm break-words">{msg.content || msg.text}</p>
+                    <p className="text-sm wrap-break-word">{msg.content || msg.text}</p>
                   </div>
                 </div>
               );

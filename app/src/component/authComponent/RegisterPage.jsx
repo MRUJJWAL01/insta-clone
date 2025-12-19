@@ -6,7 +6,6 @@ import { useNavigate } from "react-router";
 import { InstagramLogo } from "../../assets/Icons";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
-
 export default function RegisterPage({ setToggle }) {
   const navigate = useNavigate();
   const {
@@ -16,26 +15,28 @@ export default function RegisterPage({ setToggle }) {
   } = useForm();
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    if (loading) return;
+    setLoading(true);
     try {
-      let res = dispatch(fetchRegisterApi(data));
-      if (res) {
-        // console.log("registered from regPage");
-      }
-      navigate("/login");
+      await dispatch(fetchRegisterApi(data));
+      redirect();
     } catch (error) {
       console.log("error in register user", error);
+      throw error;
+    } finally {
+      setLoading(false);
     }
-    // Handle sign up logic here
   };
 
   const handleFacebookLogin = (data) => {
-    // Handle Facebook login logic here
-    // console.log("Facebook login attempted");
     dispatch(fetchRegisterThunk(data));
   };
+  const redirect = ()=>{
+   setToggle((prev) => !prev);
+  }
 
   return (
     <main className="min-h-screen bg-black flex items-center justify-center p-4">
@@ -218,12 +219,24 @@ export default function RegisterPage({ setToggle }) {
               </p>
             </div>
 
-            {/* Sign up button */}
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded text-sm transition-colors duration-200"
+              disabled={loading}
+              className={`w-full h-12  rounded text-sm transition-colors duration-200"
+            flex items-center justify-center
+    ${
+      loading ? "bg-[#3846B5]" : "bg-[#4F5DFF] cursor-pointer active:scale-95"
+    }`}
             >
-              Sign up
+              {loading ? (
+                <div className="insta-spinner">
+                  {Array.from({ length: 12 }).map((_, i) => (
+                    <div key={i}></div>
+                  ))}
+                </div>
+              ) : (
+                <span className="text-white font-semibold">Sign Up</span>
+              )}
             </button>
           </form>
         </div>

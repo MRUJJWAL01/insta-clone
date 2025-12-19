@@ -3,6 +3,8 @@ import { Search, Edit, Phone, Video, Info, Image, Mic, Smile, ChevronLeft } from
 
 const MessageLayout = () => {
   const [selectedChat, setSelectedChat] = useState(null);
+  console.log(selectedChat);
+  
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   // Sample chat data
@@ -66,10 +68,10 @@ const MessageLayout = () => {
         </div>
 
         {/* Stories */}
-        <div className="flex gap-3 p-4 overflow-x-auto border-b border-gray-800">
+        <div className="flex gap-3 p-4 overflow-x-auto ">
           {stories.map((story, idx) => (
-            <div key={idx} className="flex flex-col items-center min-w-[64px]">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-yellow-400 to-pink-600 p-[2px]">
+            <div key={idx} className="flex flex-col items-center min-w-16">
+              <div className="w-16 h-16 rounded-full bg-linear-to-tr from-yellow-400 to-pink-600 p-0.5">
                 <div className="w-full h-full rounded-full bg-gray-900 flex items-center justify-center text-2xl">
                   {story.avatar}
                 </div>
@@ -80,24 +82,24 @@ const MessageLayout = () => {
         </div>
 
         {/* Messages/Requests Tabs */}
-        <div className="flex border-b border-gray-800">
-          <button className="flex-1 py-3 text-sm font-semibold border-b border-white">
+        <div className="flex justify-between px-4">
+          <button className="flex  py-3 text-lg font-bold ">
             Messages
           </button>
-          <button className="flex-1 py-3 text-sm font-semibold text-gray-400">
+          <button className="flex  py-3 text-lg font-bold text-gray-400">
             Requests
           </button>
         </div>
 
         {/* Chat List */}
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1  scrollbar-hide overflow-y-auto">
           {chats.map((chat) => (
             <button
               key={chat.id}
               onClick={() => handleChatClick(chat)}
-              className="w-full flex items-center gap-3 p-3 hover:bg-gray-900 transition-colors"
+              className={`w-full flex items-center gap-3 cursor-pointer active:scale-95 ${selectedChat.id==chat.id?"bg-[#262626]":""}  p-3 hover:bg-[#25282C] transition-all `}
             >
-              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-2xl flex-shrink-0">
+              <div className="w-14 h-14 rounded-full bg-linear-to-br from-purple-500 to-pink-500 flex items-center justify-center text-2xl shrink-0">
                 {chat.avatar}
               </div>
               <div className="flex-1 text-left min-w-0">
@@ -194,6 +196,25 @@ const MessageLayout = () => {
           </div>
         )}
       </div>
+        <style>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        @keyframes heartPop {
+          0% {
+            transform: scale(0);
+            opacity: 0;
+          }
+          50% {
+            transform: scale(1.2);
+            opacity: 1;
+          }
+          100% {
+            transform: scale(1);
+            opacity: 0;
+          }
+        }
+      `}</style>
     </div>
   );
 };

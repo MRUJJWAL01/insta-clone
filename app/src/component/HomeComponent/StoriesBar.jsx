@@ -35,7 +35,7 @@ const StoriesBar = () => {
   };
 
   return (
-    <div className="relative pl-6 lg:ml-3  py-2 overflow-hidden">
+    <div className="relative pl-6 lg:ml-5  pb-2 overflow-hidden">
       {showLeftArrow && (
         <button
           onClick={() => scroll("left")}
@@ -56,11 +56,11 @@ const StoriesBar = () => {
         {stories.map((story) => (
           <div
             key={story.id}
-            className="flex flex-col items-center gap-1 flex-shrink-0 cursor-pointer group"
+            className="flex flex-col items-center gap-1 shrink-0 cursor-pointer group"
           >
             <div className="relative">
-              <div className="w-22 h-22 rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 p-[3px]  transition-transform">
-                <div className="w-full h-full rounded-full bg-zinc-900 p-[3px]">
+              <div className="w-22.25 h-22.25 rounded-full bg-linear-to-tr from-yellow-400 via-pink-500 to-purple-600 p-0.75  transition-transform">
+                <div className="w-full h-full rounded-full bg-zinc-900 p-0.75">
                   <img
                     src={story.avatar}
                     alt={story.username}
@@ -69,7 +69,7 @@ const StoriesBar = () => {
                 </div>
               </div>
             </div>
-            <span className="text-xs text-zinc-300 max-w-[70px] truncate">
+            <span className="text-xs text-zinc-300 max-w-17.5 truncate">
               {story.username}
             </span>
           </div>

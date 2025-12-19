@@ -4,16 +4,18 @@ import { NavLink, useNavigate } from "react-router";
 import { loginUserApi } from "../../features/actions/AuthAction";
 import { InstagramLogo } from "../../assets/Icons";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import { useState } from "react";
+import { lazy, useState } from "react";
 
 export default function LoginPage({ setToggle }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm();
+    formState: { errors,inValid },
+  } = useForm({mode:"onChange"});
   const [showPassword, setShowPassword] = useState(false);
 
   // Validation helpers (unchanged)
@@ -27,21 +29,28 @@ export default function LoginPage({ setToggle }) {
     return "unknown";
   }
 
-  // Hook form handles state, login logic on submit
-  const onSubmit = ({ identity, password }) => {
-    const type = getIdentifierType(identity);
-    let payload = {};
-    if (type === "email") {
-      payload = { email: identity, password };
-    } else if (type === "mobile") {
-      payload = { mobile: identity, password };
-    } else if (type === "username") {
-      payload = { username: identity, password };
-    } else {
-      return console.error("Invalid identity type");
+  const onSubmit = async ({ identity, password }) => {
+    if (loading) return;
+
+    setLoading(true);
+
+    try {
+      const type = getIdentifierType(identity);
+      let payload;
+
+      if (type === "email") payload = { email: identity, password };
+      else if (type === "mobile") payload = { mobile: identity, password };
+      else if (type === "username") payload = { username: identity, password };
+      else throw new Error("Invalid identity");
+
+      const res = await dispatch(loginUserApi(payload)); //
+
+      navigate("/home");
+    } catch (error) {
+      console.log("Login failed:", error);
+    } finally {
+      setLoading(false);
     }
-    dispatch(loginUserApi(payload));
-    console.log("logg in");
   };
 
   return (
@@ -62,6 +71,7 @@ export default function LoginPage({ setToggle }) {
               <input
                 {...register("identity", {
                   required: "This field is required",
+                  minLength : {value:4, message:"minlength is 4"},
                   validate: (val) =>
                     isEmail(val) ||
                     isMobile(val) ||
@@ -119,9 +129,23 @@ export default function LoginPage({ setToggle }) {
             {/* Login button */}
             <button
               type="submit"
-              className="w-full mt-3 bg-[#3441AF] text-white font-semibold py-3 px-4 rounded-2xl text-sm"
+              disabled={loading }
+              className={`w-full h-12 rounded-xl flex items-center justify-center
+    ${
+      loading 
+        ? "bg-[#3846B5]"
+        : "bg-[#4F5DFF] cursor-pointer active:scale-95"
+    }`}
             >
-              Log in
+              {loading ? (
+                <div className="insta-spinner">
+                  {Array.from({ length: 12 }).map((_, i) => (
+                    <div key={i}></div>
+                  ))}
+                </div>
+              ) : (
+                <span className="text-white font-semibold">Log in</span>
+              )}
             </button>
           </form>
 
