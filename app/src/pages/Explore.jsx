@@ -232,7 +232,7 @@ export default function Explore() {
 
                 {/* Hover overlay with stats */}
                 {!isMobile && hoveredPost === post.id && (
-                  <div className="post-stats absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center gap-8">
+                  <div className="post-stats absolute inset-0 hover:bg-black/50 bg-opacity-50 flex items-center justify-center gap-8">
                     <div className="flex items-center gap-2 text-white font-bold">
                       <Heart size={24} fill="white" />
                       <span>{post.likes}</span>

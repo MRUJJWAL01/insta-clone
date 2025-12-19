@@ -108,7 +108,7 @@ export const SideItem = [
     showInHorizontal: true,
     to: "/home/message",
   },
-  { id: "create", label: "Create", icon: PlusSquare, showInHorizontal: true },
+  
   {
     id: "notifications",
     label: "Notifications",
@@ -116,6 +116,7 @@ export const SideItem = [
     badge: 0,
     showInHorizontal: false,
   },
+  { id: "create", label: "Create", icon: PlusSquare, showInHorizontal: true },
   {
     id: "profile",
     label: "Profile",
