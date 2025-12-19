@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { Phone, Video, Info, Smile, Image, Heart, Mic } from "lucide-react";
 import { useLocation } from "react-router";
 import { io } from "socket.io-client";

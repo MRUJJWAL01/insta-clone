@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import  { useState, useRef } from "react";
 import FeedPost from "../component/HomeComponent/FeedPost"
 import StoriesBar from "../component/HomeComponent/StoriesBar";
 

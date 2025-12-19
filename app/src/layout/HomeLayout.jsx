@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-import SideBar from "../component/HomeComponent/Sidebar";
+import Sidebar from "../component/HomeComponent/Sidebar";
 import MessageButton from "../component/messages/MessageButton";
 
 const HomeLayout = () => {
@@ -9,7 +9,7 @@ const HomeLayout = () => {
 {/* Sidebar */}
       <aside className="fixed   h-screen z-40"
       >
-        <SideBar />
+        <Sidebar />
       </aside>
 
       {/* Main content */}
